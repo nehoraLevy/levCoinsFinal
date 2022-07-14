@@ -1,9 +1,7 @@
-import logo from './logo.svg';
-//
 import Slider from './client/slider.js';
 import './App.css';
 import ResponsiveAppBar from "./client/ResponsiveAppBar.js";
-import LoginWithGoogle from "./client/LoginWithGoogle";
+//import LoginForm from './client/login.js';
 function App() {
   return (
     <div className="App">
@@ -11,9 +9,10 @@ function App() {
       <ResponsiveAppBar></ResponsiveAppBar>
       </header>
       <Slider></Slider>
-      <LoginWithGoogle></LoginWithGoogle>
     </div>
   );
 }
+
+
 
 export default App;

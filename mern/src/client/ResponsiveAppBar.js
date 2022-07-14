@@ -13,9 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import "./resposiveAppBar.css";
-import LoginWithGoogle from './LoginWithGoogle';
 const pages = ['Home','About us', 'Contact us'];
-const settings = ['Login'];
+const settings = ['Login','Register'];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -33,18 +32,19 @@ const ResponsiveAppBar = () => {
   };
 
   const handleCloseUserMenu = () => {
-    //document.getElementsByClassName("App").appendChild(<LoginWithGoogle/>);
-    console.log("open menu");
     setAnchorElUser(null);
   };
 
-  
+  const onClickSetting=(index)=>{
+    console.log(index);
+    handleCloseUserMenu();
+  }
 
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <img className="logo" src="https://cdn-icons-png.flaticon.com/512/1847/1847657.png" ></img>
+          <img className="logo" src="https://cdn-icons-png.flaticon.com/512/1847/1847657.png" alt=""></img>
           <Typography
             variant="h6"
             noWrap
@@ -150,9 +150,9 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {settings.map((setting,index) => (
+                <MenuItem key={setting} onClick={(event) => onClickSetting(index)}>
+                  <Typography textAlign="center" >{setting}</Typography>
                 </MenuItem>
               ))}
             </Menu>
