@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import "./resposiveAppBar.css";
+import LoginWithGoogle from './LoginWithGoogle';
 const pages = ['Home','About us', 'Contact us'];
 const settings = ['Login'];
 
@@ -32,8 +33,12 @@ const ResponsiveAppBar = () => {
   };
 
   const handleCloseUserMenu = () => {
+    //document.getElementsByClassName("App").appendChild(<LoginWithGoogle/>);
+    console.log("open menu");
     setAnchorElUser(null);
   };
+
+  
 
   return (
     <AppBar position="static">
