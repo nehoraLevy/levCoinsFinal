@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react';
 import { useForm } from 'react-hook-form';
+import Modal from '@mui/material/Modal'
 import './register.css';
 
 
-export default function RegisterForm() {
+export default function RegisterForm(props) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -11,6 +12,9 @@ export default function RegisterForm() {
     const onSubmit = data => console.log(data);
     /**onSubmit להוסיף בה לוגיקה של הוספה למונגו ושליחת מייל ואחר כך חזרה למסך הבית ואז יצטרך להתחבר כמו לקוח רשום  */
     //בנוסף יש לשלוח מייל למנהל לאישור 
+    if(props.isOpen){
+        handleOpen();
+    }
     
   return (
 
@@ -46,23 +50,4 @@ export default function RegisterForm() {
 
 
 
-
-
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
 

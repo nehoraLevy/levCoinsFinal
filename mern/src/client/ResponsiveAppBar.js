@@ -15,10 +15,12 @@ import Modal from '@mui/material/Modal';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import "./resposiveAppBar.css";
+import RegisterForm from "./Register.js";
 const pages = ['Home','About us', 'Contact us'];
 const settings = ['Login','Register'];
-import Register from "./Register.js";
 
+
+let isOpenRegister=false;
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -40,7 +42,14 @@ const ResponsiveAppBar = () => {
 
   const onClickSetting=(index)=>{
     console.log(index);
+    if(index==1)
+    {
+      onOpenRegister();
+    }
     handleCloseUserMenu();
+  }
+  const onOpenRegister=()=>{
+    isOpenRegister=true;
   }
 
   return (
@@ -161,7 +170,7 @@ const ResponsiveAppBar = () => {
             </Menu>
           </Box>
         </Toolbar>
-        <Register></Register>
+        <RegisterForm isOpen={isOpenRegister}></RegisterForm>
       </Container>
     </AppBar>
   );
