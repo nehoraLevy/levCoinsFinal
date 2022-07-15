@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
-import { sliderData } from "./slider-data";
-import "./slider.css";
+import { sliderData } from "./Slider-data";
+import "./Slider.css";
 
 const Slider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useForm } from 'react-hook-form';
 import Modal from '@mui/material/Modal'
-import './register.css';
+import './Register.css';
 
 
 export default function RegisterForm(props) {

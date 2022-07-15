@@ -10,12 +10,10 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
-import Modal from '@mui/material/Modal';
-
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import "./resposiveAppBar.css";
-import LoginForm from "./login.js";
+import "./ResposiveAppBar.css";
+import LoginForm from "./Login.js";
 const pages = ['Home','About us', 'Contact us'];
 const settings = ['Login'];
 

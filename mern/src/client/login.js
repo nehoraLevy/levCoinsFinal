@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { useForm } from 'react-hook-form';
 import Modal from '@mui/material/Modal';
 import RegisterForm from './Register.js';
-import './login.css';
+import './Login.css';
 
 let openRegisterForm=false;
 
