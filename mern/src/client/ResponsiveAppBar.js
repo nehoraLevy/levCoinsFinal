@@ -10,11 +10,14 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
+import Modal from '@mui/material/Modal';
+
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import "./resposiveAppBar.css";
 const pages = ['Home','About us', 'Contact us'];
 const settings = ['Login','Register'];
+import Register from "./Register.js";
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -158,6 +161,7 @@ const ResponsiveAppBar = () => {
             </Menu>
           </Box>
         </Toolbar>
+        <Register></Register>
       </Container>
     </AppBar>
   );
