@@ -1,7 +1,7 @@
-import Slider from './client/slider.js';
+import Slider from './client/Slider.js';
 import './App.css';
 import ResponsiveAppBar from "./client/ResponsiveAppBar.js";
-//import ContactUs from './client/contactUs.js';
+//import ContactUs from './client/ContactUs.js';
 import RegisterForm from './client/Register.js';
 function App() {
   return (

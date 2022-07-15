@@ -3,13 +3,18 @@ import { useForm } from 'react-hook-form';
 import Modal from '@mui/material/Modal'
 import './Register.css';
 
-
+let message="";
 export default function RegisterForm(props) {
     const [open, setOpen] = useState(true);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm()
     const onSubmit = data => console.log(data);
+    const handleSignIn=()=>{
+        message="Your Request sended to manager!";
+        console.log(document.getElementsByClassName("textAfterSign"));
+        setTimeout(()=>{handleClose()},10000);
+    }
     const style = {
         position: 'absolute',
         top: '50%',
@@ -33,19 +38,21 @@ export default function RegisterForm(props) {
             <Modal style={{display:'flex',alignItems:'center',justifyContent:'center'}} disableEnforceFocus open={open} onClose={handleClose}  aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                 <div className="register">
                     <div className="col-1">
-                        <h2 className='header'>Sign In</h2>
-                        <span>please,fill the field</span>
+                        <h2 className='header'>Create New Account</h2>
+                        <span>please, fill the fields</span>
 
                         <form id='RegisterField' className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>
                             <input type="text" {...register("username")} placeholder='username' />
-                            <input type="text" {...register("password")} placeholder='password' />
-                            <input type="text" {...register("confirmpwd")} placeholder='confirm password' />
+                            <input type="password" {...register("password")} placeholder='password' />
+                            <input type="password" {...register("confirmpwd")} placeholder='confirm password' />
                             <input type="text" {...register("mobile", { required : true, maxLength: 10 })} placeholder='mobile number' />
+                            <input type="email" {...register("email", { required : true, maxLength: 25 })} placeholder='email' />
                             <input type="text" {...register("InitialAmount", { required : true, maxLength: 10 })} placeholder='Initial amount $' />
 
                             {errors.mobile?.type === "required" && "Mobile Number is required"}
                             {errors.mobile?.type === "maxLength" && "Max Length Exceed"}
-                            <button className='btn' onClick={handleClose}>Sign In</button>
+                            <button className='btn' onClick={handleSignIn}>Sign In</button>
+                            <div className="messageAfterSign">{message}</div>
                         </form>
 
                     </div>

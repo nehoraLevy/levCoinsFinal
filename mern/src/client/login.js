@@ -32,7 +32,7 @@ export default function LoginForm(props) {
 
                         <form id='LoginField' className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>
                             <input type="text" {...register("username")} placeholder='username' />
-                            <input type="text" {...register("password")} placeholder='password' />
+                            <input type="password" {...register("password")} placeholder='password' />
                             <button className='btn' onClick={handleClose}>Sign In</button>
                         </form>
                         <div className='textToRegister'>

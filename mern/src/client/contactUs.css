@@ -5,10 +5,7 @@
     margin: 0;
 }
 
-body{
-    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%); 
-    background-size: 100% 100%;
-  }
+
 
 .container{
     max-width: 978px;
@@ -23,13 +20,6 @@ body{
     padding: 3em 0;
   }
 
-.App {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
 #form-group{
     max-width: 320px;
     width: 100vw;
