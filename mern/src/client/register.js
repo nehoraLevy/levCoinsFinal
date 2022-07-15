@@ -30,7 +30,7 @@ export default function RegisterForm(props) {
     return (
 
         <section>
-            <Modal disableEnforceFocus open={open} onClose={handleClose}  aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+            <Modal style={{display:'flex',alignItems:'center',justifyContent:'center'}} disableEnforceFocus open={open} onClose={handleClose}  aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                 <div className="register">
                     <div className="col-1">
                         <h2 className='header'>Sign In</h2>

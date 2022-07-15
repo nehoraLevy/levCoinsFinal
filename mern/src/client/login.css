@@ -8,8 +8,8 @@
 
 
 .login{
-  max-width: 978px;
-  width: 100vw;
+  max-width: 400px;
+  width: 50vw;
   display:flex;
   border: 1px solid #e9ecef;
   border-radius: 5px;
@@ -87,6 +87,7 @@
   text-decoration: none;
   margin: 0 4px;
 }
+
 
 @media screen and (min-width: 860px)  {
   .register .col-2 img{
