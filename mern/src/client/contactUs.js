@@ -1,8 +1,8 @@
-//import "./ContactUs.css";
+import "./ContactUs.css";
 import React, {useState} from "react";
 import Modal from '@mui/material/Modal';
-export default function ContactUs(props)
-{
+
+export default function ContactUs(props) {
   const [open, setOpen] = useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -15,6 +15,7 @@ export default function ContactUs(props)
   <div className="container">
     <div>
       <Modal style={{display:'flex',alignItems:'center',justifyContent:'center'}} disableEnforceFocus open={open} onClose={handleClose}  aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+        <div>
           <h1>Contact us!</h1>
           <form target="_blank" action="https://formsubmit.co/batyarivka@gmail.com" method="POST">
             <div className="form-group">
@@ -30,7 +31,8 @@ export default function ContactUs(props)
             </div>
             <button type="submit" className="btn">Submit Form</button>
           </form>
-        </Modal>
+        </div>
+      </Modal>
     </div>
   </div>)
 }

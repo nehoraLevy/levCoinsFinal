@@ -26,21 +26,28 @@ const ResponsiveAppBar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
+    //console.log(event.currentTarget);
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = (index) => {
-    console.log(pages[index]);
-    if(pages[index]=="Contact us")
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const onClickPage=(index)=>
+  {
+    
+    if(pages[index]=='Contact us')
     {
       isOpenContactUs=true;
       console.log(isOpenContactUs);
     }
-    setAnchorElNav(null);
-  };
+    //handleCloseNavMenu();
+
+  }
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -104,19 +111,19 @@ const ResponsiveAppBar = () => {
                 horizontal: 'left',
               }}
               open={Boolean(anchorElNav)}
-              onClose={()=>{handleCloseNavMenu(-1)}}
+              onClose={()=>{handleCloseNavMenu()}}
               sx={{
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page,index) => (
-                <MenuItem key={page} onClick={()=>{handleCloseNavMenu(index)}}>
+              {pages.map((page) => (
+                <MenuItem key={page} onClick={()=>{handleCloseNavMenu();}}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          
           <Typography
             variant="h5"
             noWrap
@@ -138,7 +145,7 @@ const ResponsiveAppBar = () => {
             {pages.map((page, index) => (
               <Button
                 key={page}
-                onClick={()=>{handleCloseNavMenu(index)}}
+                onClick={()=>{onClickPage(index)}}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page}
