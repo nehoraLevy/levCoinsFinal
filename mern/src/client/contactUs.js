@@ -1,15 +1,8 @@
 import "./ContactUs.css";
-import React, {useState} from "react";
-import Modal from '@mui/material/Modal';
 
-export default function ContactUs(props) {
-  const [open, setOpen] = useState(true);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  return (
+export default function ContactUs() {
   <div className="container">
     <div>
-
         <div>
           <h1>Contact us!</h1>
           <form target="_blank" action="https://formsubmit.co/batyarivka@gmail.com" method="POST">
@@ -27,7 +20,7 @@ export default function ContactUs(props) {
             <button type="submit" className="btn">Submit Form</button>
           </form>
         </div>
-
-  </div>)
+    </div>
+  </div>
 }
 //export default ContactUs;
