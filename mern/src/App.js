@@ -4,6 +4,8 @@ import ResponsiveAppBar from "./client/ResponsiveAppBar.js";
 import ContactUs from './client/ContactUs.js';
 import LoginForm from './client/Login.js';
 import { Routes, Route } from 'react-router';
+import Chat from './client/chat.js';
+
 function App() {
   return (
     
@@ -13,7 +15,7 @@ function App() {
       <Routes>
       <Route path="/" element={<Slider/>}/>
         <Route path="/Home" element={<Slider/>}/>
-        <Route path="/Contact%20us" element={<ContactUs/>}/>
+        <Route path="/Contact us" element={<ContactUs/>}/>
         <Route path="/Login" element={<LoginForm/>}/>
       </Routes>
       </header>

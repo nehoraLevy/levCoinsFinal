@@ -13,8 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link} from "react-router-dom"; 
 import "./ResposiveAppBar.css";
-import LoginForm from "./Login.js";
-import ContactUs from './ContactUs.js';
+
 const pages = ['Home','About us', 'Contact us'];
 const settings = ['Login'];
 
