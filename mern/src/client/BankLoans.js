@@ -38,18 +38,13 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 14,
   },
 }));
-const Styled2TableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#e6f2ff",
-  }
-}));
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   
   return (
     <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} >
         <TableCell align="center">{row.side}</TableCell>
         <TableCell align="center">{row.accountID}</TableCell>
         <TableCell align="center">{row.amount}</TableCell>
@@ -71,11 +66,11 @@ function Row(props) {
               <Table sx={{ minWidth: 700 }} aria-label="customized table">
                 <TableHead>
                   <TableRow>
-                    <Styled2TableCell align="center">status</Styled2TableCell>
-                    <Styled2TableCell align="center">interest</Styled2TableCell>
-                    <Styled2TableCell align="center">loanDate</Styled2TableCell>
-                    <Styled2TableCell align="center">returnPeriod</Styled2TableCell>
-                    <Styled2TableCell align="center">reason</Styled2TableCell>
+                    <TableCell align="center"><strong>status</strong></TableCell>
+                    <TableCell align="center"><strong>interest</strong></TableCell>
+                    <TableCell align="center"><strong>loanDate</strong></TableCell>
+                    <TableCell align="center"><strong>returnPeriod</strong></TableCell>
+                    <TableCell align="center"><strong>reason</strong></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

@@ -5,11 +5,12 @@ import ContactUs from './client/ContactUs.js';
 import LoginForm from './client/Login.js';
 import CollapsibleTable from './client/BankLoans'
 import { Routes, Route } from 'react-router';
+import Converters from './client/converters.js';
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <CollapsibleTable></CollapsibleTable>
+        <Converters></Converters>
       
       </header>
     </div>
