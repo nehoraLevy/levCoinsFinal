@@ -1,5 +1,4 @@
 import "./ContactUs.css";
-
 export default function ContactUs() {
   <div className="container">
     <div>
@@ -23,4 +22,3 @@ export default function ContactUs() {
     </div>
   </div>
 }
-//export default ContactUs;
