@@ -1,15 +1,23 @@
 import Slider from './client/Slider.js';
 import './App.css';
 import ResponsiveAppBar from "./client/ResponsiveAppBar.js";
-//import ContactUs from './client/ContactUs.js';
-import RegisterForm from './client/Register.js';
+import ContactUs from './client/ContactUs.js';
+import LoginForm from './client/Login.js';
+import { Routes, Route } from 'react-router';
 function App() {
   return (
+    /*<ContactUs isOpen={true}></ContactUs>*/
+    
     <div className="App">
       <header className="App-header">
       <ResponsiveAppBar></ResponsiveAppBar>
+      <Routes>
+      <Route path="/" element={<Slider/>}/>
+        <Route path="/Home" element={<Slider/>}/>
+        <Route path="/Contactus" element={<ContactUs/>}/>
+        <Route path="/Login" element={<LoginForm/>}/>
+      </Routes>
       </header>
-      <Slider></Slider>
     </div>
   );
 }

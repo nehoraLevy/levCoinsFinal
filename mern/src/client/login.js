@@ -6,7 +6,7 @@ import './Login.css';
 
 let openRegisterForm=false;
 
-export default function LoginForm(props) {
+export default function LoginForm() {
     const [open, setOpen] = useState(true);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -17,11 +17,7 @@ export default function LoginForm(props) {
         handleClose();
         openRegisterForm=true;
     }
-    //פה בלחיצה נבדוק במסד הנתונים האם המשתמש קיים והאם הסיסמאות תואמות ואםם כן יכנס לאזור האישי...
-    if(!props.isOpen)
-    {
-        return null;
-    }    
+    //פה בלחיצה נבדוק במסד הנתונים האם המשתמש קיים והאם הסיסמאות תואמות ואםם כן יכנס לאזור האישי...   
     return (
         <section>
             <Modal style={{display:'flex',alignItems:'center',justifyContent:'center'}} disableEnforceFocus open={open} onClose={handleClose}  aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
