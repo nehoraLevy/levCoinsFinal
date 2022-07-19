@@ -11,16 +11,13 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import {Link} from "react-router-dom"; 
 import "./ResposiveAppBar.css";
 import LoginForm from "./Login.js";
 import ContactUs from './ContactUs.js';
 const pages = ['Home','About us', 'Contact us'];
 const settings = ['Login'];
 
-
-let isOpenLogin=false;
-let isOpenContactUs=false;
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -37,33 +34,11 @@ const ResponsiveAppBar = () => {
     setAnchorElNav(null);
   };
 
-  const onClickPage=(index)=>
-  {
-    
-    if(pages[index]=='Contact us')
-    {
-      isOpenContactUs=true;
-      console.log(isOpenContactUs);
-    }
-    //handleCloseNavMenu();
-
-  }
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
 
-  const onClickSetting=(index)=>{
-    console.log(index);
-    if(settings[index]=="Login")
-    {
-      onOpenLogin();
-    }
-    handleCloseUserMenu();
-  }
-  const onOpenLogin=()=>{
-    isOpenLogin=true;
-  }
 
   return (
     <AppBar position="static">
@@ -117,8 +92,7 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={()=>{handleCloseNavMenu();}}>
-                  <Typography textAlign="center">{page}</Typography>
+
                 </MenuItem>
               ))}
             </Menu>
@@ -142,13 +116,13 @@ const ResponsiveAppBar = () => {
           >
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page, index) => (
+            {pages.map((page) => (
               <Button
                 key={page}
-                onClick={()=>{onClickPage(index)}}
+
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                <Link style={{textDecoration: "none", color:"white"}} to={`/${page}`}>{page}</Link>
               </Button>
             ))}
           </Box>
@@ -176,15 +150,15 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting,index) => (
-                <MenuItem key={setting} onClick={(event) => onClickSetting(index)}>
-                  <Typography textAlign="center" >{setting}</Typography>
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center" >
+                  <Link style={{textDecoration: "none", color:"black"}} to={`/${setting}`}>{setting}</Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
         </Toolbar>
-        <ContactUs isOpen={isOpenContactUs}></ContactUs>
-        <LoginForm isOpen={isOpenLogin}></LoginForm>
       </Container>
     </AppBar>
   );

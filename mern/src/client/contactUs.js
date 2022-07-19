@@ -6,15 +6,10 @@ export default function ContactUs(props) {
   const [open, setOpen] = useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  console.log(props.isOpen);
-  if(!props.isOpen)
-  {
-    return null;
-  }
   return (
   <div className="container">
     <div>
-      <Modal style={{display:'flex',alignItems:'center',justifyContent:'center'}} disableEnforceFocus open={open} onClose={handleClose}  aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+
         <div>
           <h1>Contact us!</h1>
           <form target="_blank" action="https://formsubmit.co/batyarivka@gmail.com" method="POST">
@@ -32,8 +27,7 @@ export default function ContactUs(props) {
             <button type="submit" className="btn">Submit Form</button>
           </form>
         </div>
-      </Modal>
-    </div>
+
   </div>)
 }
 //export default ContactUs;
