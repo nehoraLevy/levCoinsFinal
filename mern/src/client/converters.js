@@ -44,15 +44,15 @@ export default function ColorToggleButton() {
 
     return (
         <div>
-            <div id="value">value</div>
+            <div id="value" style={{"color":"black"}}>value</div>
             <ToggleButtonGroup
                 color="primary"
                 value={alignment}
                 exclusive
                 onChange={handleChange}
                 >
-                <ToggleButton id="shekels" value="shekels" onClick={convertDollarsToShekel}>Shekels</ToggleButton>
-                <ToggleButton value="dollars" onClick={convertShekelToDollars}>Dollars</ToggleButton>
+                <ToggleButton id="shekels" value="shekels" onClick={convertDollarsToShekel}><span>&#8362;</span></ToggleButton>
+                <ToggleButton value="dollars" onClick={convertShekelToDollars}><span>&#36;</span></ToggleButton>
             </ToggleButtonGroup>
         </div>
     );
