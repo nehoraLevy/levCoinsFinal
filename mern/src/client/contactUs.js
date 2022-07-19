@@ -9,6 +9,7 @@ export default function ContactUs(props) {
   return (
   <div className="container">
     <div>
+
         <div>
           <h1>Contact us!</h1>
           <form target="_blank" action="https://formsubmit.co/batyarivka@gmail.com" method="POST">
@@ -26,7 +27,7 @@ export default function ContactUs(props) {
             <button type="submit" className="btn">Submit Form</button>
           </form>
         </div>
-      </div>
+
   </div>)
 }
 //export default ContactUs;
