@@ -5,22 +5,29 @@
     margin: 0;
 }
 
+.dark{
 
+  background-color: #2b84b3;
+}
 
 .container{
     max-width: 978px;
     width: 100vw;
     display:flex;
+    position:relative;
     border: 1px solid #e9ecef;
     border-radius: 5px;
     /* box-shadow: 1px 3px 10px #e9ecef; */
     background-color: white;
-    opacity: 0.5;
+    opacity: 0.7;
     margin: auto;
     padding: 3em 0;
   }
-
+.form{
+  position:relative
+}
 #form-group{
+  
     max-width: 320px;
     width: 100vw;
     margin: 2em auto;

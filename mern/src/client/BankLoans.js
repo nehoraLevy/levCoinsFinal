@@ -41,7 +41,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
-  
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} >
@@ -115,7 +114,6 @@ const rows = [
   createData('lend', 327009783, 200, 0.01, '5 month','allowed','none', '12/12/2021'),
   createData('lended', 327000000, 100000, 0.005,'1 year','refused','to many lended requested','12/07/2022'),
 ];
-console.log(rows)
 export default function CollapsibleTable() {
   return (
     <TableContainer component={Paper}>

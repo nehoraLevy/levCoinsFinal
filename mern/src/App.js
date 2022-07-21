@@ -3,17 +3,41 @@ import './App.css';
 import ResponsiveAppBar from "./client/ResponsiveAppBar.js";
 import ContactUs from './client/ContactUs.js';
 import LoginForm from './client/Login.js';
-import CollapsibleTable from './client/BankLoans'
 import { Routes, Route } from 'react-router';
-import Converters from './client/converters.js';
-function App() {
+import ManagerEmail from './client/ManagerEmail.js';
+
+/*function App() {
   return (
+    
     <div className="App">
       <header className="App-header">
-        <Converters></Converters>
+      <ResponsiveAppBar></ResponsiveAppBar>
       
       </header>
+      <body>
+        <Routes>
+        <Route path="/" element={<Slider/>}/>
+          <Route path="/Home" element={<Slider/>}/>
+          <Route path="/Contact" element={<ContactUs/>}/>
+          <Route path="/Login" element={<LoginForm/>}/>
+        </Routes>
+      </body>
+    </div>
+  );
+}*/
+
+function App() {
+  return (
+    
+    <div className="App">
+      <header className="App-header">
+      <ManagerEmail></ManagerEmail>
+      
+      </header>
+      
     </div>
   );
 }
+
+
 export default App;
