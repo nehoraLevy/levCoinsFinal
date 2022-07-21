@@ -22,23 +22,25 @@ import WrapStepper from "./client/money transfer/WrapStepper"
         <Route path="/Login" element={<LoginForm/>}/>
       </Routes>
 */
+
 function App() {
   return (
+    
     <div className="App">
       <header className="App-header">
-        <ResponsiveAppBar></ResponsiveAppBar>
+      <ResponsiveAppBar></ResponsiveAppBar>
+      
+      </header>
+      <body>
         <Routes>
         <Route path="/" element={<Slider/>}/>
           <Route path="/Home" element={<Slider/>}/>
-          <Route path="/Contact us" element={<ContactUs/>}/>
+          <Route path="/Contact" element={<ContactUs/>}/>
           <Route path="/Login" element={<LoginForm/>}/>
         </Routes>
-      </header>
+      </body>
     </div>
   );
 }
-
-
-
 
 export default App;

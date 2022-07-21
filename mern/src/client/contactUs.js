@@ -1,11 +1,12 @@
 import "./ContactUs.css";
-
-export default function ContactUs() {
-  <div className="container">
-    <div>
+//import $ from "jquery";
+function ContactUs() {
+  //$("body").addClass("dark");
+  return(<div className="container">
+    <div className="main">
         <div>
           <h1>Contact us!</h1>
-          <form target="_blank" action="https://formsubmit.co/batyarivka@gmail.com" method="POST">
+          <form className="form" target="_blank" action="https://formsubmit.co/batyarivka@gmail.com" method="POST">
             <div className="form-group">
                 <div className="col">
                   <input type="text" name="name" className="form-control" placeholder="Full Name" required/>
@@ -21,6 +22,6 @@ export default function ContactUs() {
           </form>
         </div>
     </div>
-  </div>
+  </div>)
 }
-//export default ContactUs;
+export default ContactUs;
