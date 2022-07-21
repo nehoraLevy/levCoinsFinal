@@ -12,7 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link} from "react-router-dom"; 
 import "./ResposiveAppBar.css";
-const pages = ['Home','About us', 'Contact'];
+const pages = ['Home','About us', 'Contact us'];
 const settings = ['Login'];
 const ResponsiveAppBar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);

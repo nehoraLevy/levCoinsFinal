@@ -37,7 +37,7 @@ function App() {
         <Routes>
         <Route path="/" element={<Slider/>}/>
           <Route path="/Home" element={<Slider/>}/>
-          <Route path="/Contact" element={<ContactUs/>}/>
+          <Route path="/Contact%20us" element={<ContactUs/>}/>
           <Route path="/Login" element={<LoginForm/>}/>
         </Routes>
       </body>
