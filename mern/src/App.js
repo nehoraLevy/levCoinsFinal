@@ -8,7 +8,9 @@ import Chat from './client/chat.js';
 import FormPage from './client/contact.js';
 import React from "react";
 
-import WrapStepper from "./client/money transfer/WrapStepper"
+import WrapStepper from "./client/money transfer/WrapStepper";
+import CollapsibleTable from "./client/BankLoans.js";
+import ManagerEmail from "./client/ManagerEmail.js"
 
 
 /*
@@ -34,7 +36,7 @@ function App() {
       <body>
         <Routes>
         <Route path="/" element={<Slider/>}/>
-          <Route path="/Home" element={<WrapStepper/>}/>
+          <Route path="/Home" element={<Slider/>}/>
           <Route path="/Contact" element={<ContactUs/>}/>
           <Route path="/Login" element={<LoginForm/>}/>
         </Routes>
