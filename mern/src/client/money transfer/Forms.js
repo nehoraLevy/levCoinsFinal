@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import SelectSearch from "react-select-search";
 import "./Forms.css"
+
+
 export const FormOne = ({ formContent }) => {
   const methods = useFormContext();
   const { reset, register } = methods;
@@ -25,12 +27,12 @@ export const FormOne = ({ formContent }) => {
       <input
         type="number"
         name="amount"
-        placeholder="amount to transfer"
+        placeholder="amount"
         {...register('amount', { required: true })}
       />
       <input
         name="transferReason"
-        placeholder="write your transfer reason..."
+        placeholder="write your reason..."
         {...register('transferReason', { required: true })}
       />
     </form>
@@ -44,6 +46,7 @@ export const FormTwo = ({ formContent }) => {
   useEffect(() => {
     reset({ ...formContent.two }, { errors: true });
   }, []);
+  
 
   return (
       <form className="form">

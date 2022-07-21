@@ -8,10 +8,11 @@ import Chat from './client/chat.js';
 import FormPage from './client/contact.js';
 import React from "react";
 
-import WrapStepper from "./client/money transfer/WrapStepper";
+import WarpTransfer from "./client/money transfer/WarpTransfer";
 import CollapsibleTable from "./client/BankLoans.js";
 import ManagerEmail from "./client/ManagerEmail.js"
 
+import WrapLoan from "./client/money transfer/WarpLoan.js";
 
 /*
 <FormPage/> not work
@@ -31,16 +32,13 @@ function App() {
     <div className="App">
       <header className="App-header">
       <ResponsiveAppBar></ResponsiveAppBar>
-      
-      </header>
-      <body>
-        <Routes>
+      <Routes>
         <Route path="/" element={<Slider/>}/>
           <Route path="/Home" element={<Slider/>}/>
           <Route path="/Contact" element={<ContactUs/>}/>
           <Route path="/Login" element={<LoginForm/>}/>
         </Routes>
-      </body>
+      </header>
     </div>
   );
 }

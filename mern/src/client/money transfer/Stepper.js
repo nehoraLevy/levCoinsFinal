@@ -12,10 +12,6 @@ import Typography from "@mui/material/Typography";
 import { FormOne, FormTwo, FormThree } from "./Forms";
 import "./Stepper.css";
 
-const stepDescription=["Fill Your Transfer Details", "We want to verfiy you", "You Finished in success!"]
-function getSteps() {
-  return ["Transfer Details", "Verfiy", "Finish"];
-}
 
 function getStepContent(step, formContent) {
   switch (step) {
@@ -32,11 +28,13 @@ function getStepContent(step, formContent) {
   }
 }
 
-export const FormStepper = () => {
+export const FormStepper = (props) => {
   const { watch, errors } = useFormContext();
   const [activeStep, setActiveStep] = React.useState(0);
   const [compiledForm, setCompiledForm] = React.useState({});
-  const steps = getSteps();
+  let steps = props.steps;
+  let stepDescription=props.stepDescription;
+  let header=props.header;
   const form = watch();
 
   const handleNext = () => {
@@ -92,6 +90,7 @@ export const FormStepper = () => {
 
   return (
     <div className="stepper">
+      <h2 className="text">{header}</h2>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};

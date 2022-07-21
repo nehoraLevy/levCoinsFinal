@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { useForm } from 'react-hook-form';
 import Modal from '@mui/material/Modal';
 import RegisterForm from './Register.js';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import './Login.css';
 
 let openRegisterForm=false;
@@ -17,6 +18,18 @@ export default function LoginForm() {
         handleClose();
         openRegisterForm=true;
     }
+
+    const [passwordShown, setPasswordShown] = useState(false);
+
+    // Password toggle handler
+    const togglePassword = () => {
+      // When the handler is invoked
+      // inverse the boolean state of passwordShown
+      setPasswordShown(!passwordShown);
+    };
+    
+    const eye=<VisibilityIcon/>;
+
     //פה בלחיצה נבדוק במסד הנתונים האם המשתמש קיים והאם הסיסמאות תואמות ואםם כן יכנס לאזור האישי...   
     return (
         <section>
@@ -27,8 +40,9 @@ export default function LoginForm() {
                         <span>please, fill the fields</span>
 
                         <form id='LoginField' className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>
-                            <input type="text" {...register("username")} placeholder='username' />
-                            <input type="password" {...register("password")} placeholder='password' />
+                            <input type="text" {...register("username")} placeholder='username' />   
+                            <input type={passwordShown ? "text" : "password"} {...register("password")} placeholder='password'></input> 
+                            <i onClick={togglePassword}>{eye}</i>{" "}
                             <button className='btn' onClick={handleClose}>Sign In</button>
                         </form>
                         <div className='textToRegister'>

@@ -7,18 +7,17 @@
   .form >  input{
     padding: 10px 20px;
     border: 1px solid #999;
-    border-radius: 3px;
-    display: block;
+    border-radius: 5px;
+    display: flex;
     width: 85%;
     margin-bottom: 20px;
     margin-top: 20px;
     box-sizing: border-box;
     outline: none;
-  }
-  
-  .form > input:hover{
     border-color:  #2fcc8b;
   }
+  
+
 
 
  .select-search {
@@ -26,6 +25,7 @@
   position: relative;
   font-family: "Nunito Sans", sans-serif;
   box-sizing: border-box;
+  border-color:  #2fcc8b;
 }
 
 .select-search *,
@@ -200,7 +200,7 @@
   cursor: default;
 }
 
-.select-search:not(.select-search--multiple) .select-search__input:hover {
+.select-search:not(.select-search--multiple) .select-search__input{
   border-color: #2fcc8b;
 }
 

@@ -88,6 +88,12 @@
   margin: 0 4px;
 }
 
+i {
+  position: absolute;
+  top: 51%;
+  right: 39%;
+}
+
 
 @media screen and (min-width: 860px)  {
   .register .col-2 img{

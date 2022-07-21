@@ -3,12 +3,14 @@
 .stepper
 {
     max-width: 600px;
-    width: 150vw;
+    width: 600px;
     display:block;
     border: 1px solid #2fcc8b;
     border-radius: 5px;
     /* box-shadow: 1px 3px 10px #e9ecef; */
     background-color: white;
+    font-family: "Nunito Sans", sans-serif;
+    
 }
 
 
@@ -20,5 +22,6 @@
     color:  #2fcc8b;
     font-weight: 500;
     display: block;
+    text-align: center;
 }
 
