@@ -5,12 +5,15 @@ import ContactUs from './client/ContactUs.js';
 import LoginForm from './client/Login.js';
 import { Routes, Route } from 'react-router';
 import Chat from './client/chat.js';
+import FormPage from './client/contact.js';
+import React from "react";
 
-function App() {
-  return (
-    
-    <div className="App">
-      <header className="App-header">
+import WrapStepper from "./client/money transfer/WrapStepper"
+
+
+/*
+<FormPage/> not work
+
       <ResponsiveAppBar></ResponsiveAppBar>
       <Routes>
       <Route path="/" element={<Slider/>}/>
@@ -18,6 +21,18 @@ function App() {
         <Route path="/Contact us" element={<ContactUs/>}/>
         <Route path="/Login" element={<LoginForm/>}/>
       </Routes>
+*/
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <ResponsiveAppBar></ResponsiveAppBar>
+        <Routes>
+        <Route path="/" element={<Slider/>}/>
+          <Route path="/Home" element={<Slider/>}/>
+          <Route path="/Contact us" element={<ContactUs/>}/>
+          <Route path="/Login" element={<LoginForm/>}/>
+        </Routes>
       </header>
     </div>
   );
