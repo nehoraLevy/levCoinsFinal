@@ -34,7 +34,7 @@ function App() {
       <body>
         <Routes>
         <Route path="/" element={<Slider/>}/>
-          <Route path="/Home" element={<Slider/>}/>
+          <Route path="/Home" element={<WrapStepper/>}/>
           <Route path="/Contact" element={<ContactUs/>}/>
           <Route path="/Login" element={<LoginForm/>}/>
         </Routes>

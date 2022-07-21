@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 import {
   MDBContainer,
   MDBRow,
@@ -65,4 +65,4 @@ const FormPage = () => {
   );
 };
 
-export default FormPage;
+export default FormPage;*/
