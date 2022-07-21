@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal'
 import './Register.css';
 
 let message="";
-export default function RegisterForm(props) {
+export default function UpdateForm(props) {
     const [open, setOpen] = useState(true);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);

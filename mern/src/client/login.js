@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import Modal from '@mui/material/Modal';
 import RegisterForm from './Register.js';
 import './Login.css';
+import UpdateForm from './updatePersonalDetails.js';
 
 let openRegisterForm=false;
 
