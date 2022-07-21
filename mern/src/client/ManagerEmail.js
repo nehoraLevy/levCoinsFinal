@@ -13,6 +13,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Collapse from '@mui/material/Collapse';
+import "./ManagerEmail.css";
 
 function createData(id,name,accountID, initialAmount,status,requestDate) {
     return {
@@ -21,12 +22,13 @@ function createData(id,name,accountID, initialAmount,status,requestDate) {
         status,
         accountID,
         initialAmount,
-        requestDate
+        requestDate,
     };
   }
 
 function addClient(prop){
     //addClient to mongodb
+    console.log(prop.id)
     document.getElementById(prop.id).remove()
 } 
 
@@ -43,18 +45,16 @@ const rows = [
     createData( 327009786,'d',327009786, 2800,'wait to manager permission', '12/12/2021'),
   ];
 function ManagerEmail(props) {
-    const row=props.row
-    console.log(row)
+    const row=props.row 
     const [open, setOpen] = React.useState(false);
-  return (
-<div>
-    <List sx={{ width: '100%', maxWidth: 360,height:'100%', bgcolor: 'background.paper' }}>
-        <ListItem alignItems="center" id={props.id}>
-            <ListItemAvatar>
-                <Avatar alt={row.name} src="/static/images/avatar/2.jpg" />
+  return (<div>
+    <List  sx={{ width: '2000%', maxWidth: 360,height:'100%' }}>
+        <ListItem  alignItems="center" id={props.id}>
+            <ListItemAvatar >
+                <Avatar alt={row.name.toUpperCase()} src="/static/images/avatar/2.jpg" />
             </ListItemAvatar>
-            <ListItemText
-            primary="Open account request"
+            <ListItemText 
+            primary="Open account request number "
             secondary={
             <div>
                 <IconButton
@@ -65,8 +65,8 @@ function ManagerEmail(props) {
                 {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </IconButton>
                 <Collapse in={open} timeout="auto" unmountOnExit>
-                <div>
-                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                <div >
+                    <Table  sx={{ minWidth: 700 }} aria-label="customized table">
                         <TableBody>
                             <TableRow>
                                 <TableCell ><strong>id: </strong>{row.id}</TableCell>
@@ -78,8 +78,8 @@ function ManagerEmail(props) {
                                 <TableCell ><strong>requestDate: </strong>{row.requestDate}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell><button onClick={()=>{addClient(row)}}>accept</button></TableCell>
-                                <TableCell><button onClick={()=>{notAddClient(row)}}>refuse</button></TableCell>
+                                <TableCell><button className="button-8" onClick={()=>{addClient(row)}}>accept</button></TableCell>
+                                <TableCell><button className="button-8" onClick={()=>{notAddClient(row)}}>refuse</button></TableCell>
                             </TableRow>
                     </TableBody>
                     </Table>
@@ -97,10 +97,13 @@ function ManagerEmail(props) {
 
 export default function ManageEmails(){
     return (<div>
-        <div>Lev Coins member request</div>
+        <img className="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo16g_ubmhj-czYTbIy6GN21VUH0L01T8pzA&usqp=CAU" alt=""></img>
+
+        <div className='emailForm'>Lev Coins member request</div>
+        <div>  bvc</div>
             <div>
                 {rows.map((row) => (
-                    <ManagerEmail key={row.accountID} row={row} />
+                    <ManagerEmail id={row.id} key={row.accountID} row={row} />
                 ))}
             </div>
         </div>)

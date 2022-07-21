@@ -1,7 +1,7 @@
 import "./ContactUs.css";
-import $ from "jquery";
+//import $ from "jquery";
 function ContactUs() {
-  $("body").addClass("dark");
+  //$("body").addClass("dark");
   return(<div className="container">
     <div className="main">
         <div>
