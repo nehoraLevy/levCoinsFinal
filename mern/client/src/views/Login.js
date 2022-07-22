@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
 import { useForm } from 'react-hook-form';
 import Modal from '@mui/material/Modal';
 import RegisterForm from './Register.js';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import {getUsers, checkUser} from "./getUsers.js";
 import './Login.css';
 
 let openRegisterForm=false;
@@ -12,11 +13,20 @@ export default function LoginForm() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm()
-    const onSubmit = data => console.log(data);
+    async function onSubmit(data)  {
+        //console.log(data);
+        const {username, password}=data;
+        console.log(getUsers());
+        //console.log(checkUser({username, password}));
+    }
     const handleClickRegisterLink=()=>
     {
         handleClose();
         openRegisterForm=true;
+    }
+
+    const handleSignIn=()=>{
+        setTimeout(()=>{handleClose()},60000);
     }
 
     const [passwordShown, setPasswordShown] = useState(false);
@@ -43,7 +53,7 @@ export default function LoginForm() {
                             <input type="text" {...register("username")} placeholder='username' />   
                             <input type={passwordShown ? "text" : "password"} {...register("password")} placeholder='password'></input> 
                             <i onClick={togglePassword}>{eye}</i>{" "}
-                            <button className='btn' onClick={handleClose}>Sign In</button>
+                            <button className='btn' onClick={handleSignIn}>Sign In</button>
                         </form>
                         <div className='textToRegister'>
                             Don't have an accoun?{" "}
