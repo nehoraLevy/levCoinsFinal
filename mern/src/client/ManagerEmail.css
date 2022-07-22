@@ -5,7 +5,7 @@
 }
 .image{
     height: 100%;
-    width: 119%;
+    width: 100%;
     position: absolute;
     left: 0%;
     margin-left:-256px;
@@ -19,9 +19,8 @@
 
 .emailForm{
     margin:auto;
-    width: 100%;
-    left: 0%;
-
+    width: 50%;
+    right: 40%;
     background: rgb(255, 255, 255,0.3);
     position: relative;
 }
