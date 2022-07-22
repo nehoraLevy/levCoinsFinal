@@ -30,7 +30,7 @@ export default function UpdateForm(props) {
             setTimeout(()=>{handleClose()},10000);
         }
         else{
-            message="We cand update your details";
+            message="We can't update your details";
             console.log(document.getElementsByClassName("textAfterSign"));
             setTimeout(()=>{handleClose()},10000);
         }
