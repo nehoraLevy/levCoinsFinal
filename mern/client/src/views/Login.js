@@ -11,6 +11,7 @@ let openRegisterForm=false;
 
 export default function LoginForm() {
     const [open, setOpen] = useState(true);
+    const [message,setMessage]=useState("");
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm()
@@ -30,7 +31,14 @@ export default function LoginForm() {
             window.alert(error);
             return;
           });
-        console.log(response.json());
+        if(response.status==400)
+        {
+            setMessage("Invalid username");
+        }
+        else{
+            setMessage("welcome to your account");
+        }
+        //console.log(response.json());
     }
     const handleClickRegisterLink=()=>
     {
@@ -39,6 +47,7 @@ export default function LoginForm() {
     }
 
     const handleSignIn=()=>{
+        console.log(getUsers());
         setTimeout(()=>{handleClose()},60000);
     }
 
@@ -66,6 +75,7 @@ export default function LoginForm() {
                             <input type="text" {...register("username")} placeholder='username' />   
                             <input type={passwordShown ? "text" : "password"} {...register("password")} placeholder='password'></input> 
                             <i onClick={togglePassword}>{eye}</i>{" "}
+                            <div className="messageAfterSign">{message}</div>
                             <button className='btn' onClick={handleSignIn}>Sign In</button>
                         </form>
                         <div className='textToRegister'>

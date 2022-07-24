@@ -37,6 +37,18 @@ recordRoutes.route("/user/:id").get(function (req, res) {
        res.json(result);
      });
 });
+
+// This section will help you get a single user by name
+recordRoutes.route("/user/:name").get(function (req, res) {
+  let db_connect = dbo.getDb();
+  let myquery = { name: String( req.params.name )};
+  db_connect
+      .collection("users")
+      .findOne(myquery, function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+ });
  
 // This section will help you create a new user
 recordRoutes.route("/user/add").post( async function (req, response) {
@@ -71,7 +83,7 @@ recordRoutes.route("/user/login").post(function (req, res) {
   db_connect.collection("users").findOne({name: userLoggging.username}).then(dbUser=>{
     if(!dbUser)
     {
-      return res.json({message:"Invalid username"});
+      return res.status(400).json({message:"Invalid username"});
     }
     bcrypt.compare(userLoggging.password, dbUser.password)
     .then(isCorrect =>{
@@ -95,7 +107,7 @@ recordRoutes.route("/user/login").post(function (req, res) {
         )
       }
       else{
-        return res.json({message:"Not Correct"});
+        return res.status(400).json({message:"Not Correct"});
       }
     })
   })

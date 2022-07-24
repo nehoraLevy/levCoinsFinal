@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser=require("body-parser");
-const mongoose = require('mongoose');
 
 
 const app = express();
@@ -10,7 +9,6 @@ const port = process.env.PORT || 5000;
 
 const jwt= require("jsonwebtoken");
 const bcrypt= require("bcrypt");
-//const User =require("./models/userModel");
 
 app.use(cors());
 app.use(express.json());
