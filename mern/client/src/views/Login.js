@@ -15,10 +15,22 @@ export default function LoginForm() {
     const handleClose = () => setOpen(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm()
     async function onSubmit(data)  {
-        //console.log(data);
         const {username, password}=data;
-        console.log(getUsers());
-        //console.log(checkUser({username, password}));
+
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        
+        const response=await fetch("http://localhost:5000/user/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({username, password}),
+          })
+          .catch(error => {
+            window.alert(error);
+            return;
+          });
+        console.log(response.json());
     }
     const handleClickRegisterLink=()=>
     {
