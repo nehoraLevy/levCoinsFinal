@@ -29,6 +29,7 @@ export default function ColorToggleButton() {
         from=to;
         to="usd";
         var rate = info[to];
+        console.log(info[to])
         console.log(value * rate)
         document.getElementById("value").innerHTML=(value * rate);}
     }
@@ -38,6 +39,7 @@ export default function ColorToggleButton() {
         from=to;
         to="ils";
         var rate = info[to];
+
         console.log(value * rate)
         document.getElementById("value").innerHTML=(value * rate);}
     }
