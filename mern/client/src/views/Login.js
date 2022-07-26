@@ -39,6 +39,7 @@ export default function LoginForm() {
             setMessage("Invalid username");
         }
         else{
+            setMessage("");
             setMessageLink(`${username}, go to your account`);
             if(username=="admin")
             {
