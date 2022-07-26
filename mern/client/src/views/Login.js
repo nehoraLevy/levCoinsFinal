@@ -41,13 +41,13 @@ export default function LoginForm() {
         else{
             setMessage("");
             setMessageLink(`${username}, go to your account`);
-            if(username=="admin")
-            {
+            if(username=="admin"){
                 setNextPage("/MangerHome");
             }
-            //TO-DO: handle go to user home page
+            else{
+                setNextPage("/UserHome");
+            }
         }
-        //console.log(response.json());
     }
     const handleClickRegisterLink=()=>
     {

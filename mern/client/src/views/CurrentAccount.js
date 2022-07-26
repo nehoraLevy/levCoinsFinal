@@ -90,7 +90,7 @@ export default function CurrentAccount() {
   return (
     <div id="header">
       <div >
-        <h1>Current Account</h1>
+        <h1>Your Account {localStorage.getItem("userInfo").username}</h1>
         <h4>account id: {rows.accountNumber}</h4>
         <h4>ballence:<Converters value={rows.ballence} type="ils"></Converters></h4>
       </div>

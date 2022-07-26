@@ -13,6 +13,7 @@ import CollapsibleTable from "./views/BankLoans.js";
 import ManagerEmail from "./views/ManagerEmail.js"
 
 import WrapLoan from "./views/money transfer/WarpLoan.js";
+import CurrentAccount from './views/CurrentAccount.js';
 
 /*
 <FormPage/> not work
@@ -38,6 +39,7 @@ function App() {
           <Route path="/Contact%20us" element={<ContactUs/>}/>
           <Route path="/Login" element={<LoginForm/>}/>
           <Route path="/MangerHome" element={<ManagerEmail/>}/>
+          <Route path="/UserHome" element={<CurrentAccount/>}/>
         </Routes>
       </header>
     </div>
