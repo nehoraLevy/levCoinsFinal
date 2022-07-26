@@ -37,6 +37,7 @@ function App() {
           <Route path="/Home" element={<Slider/>}/>
           <Route path="/Contact%20us" element={<ContactUs/>}/>
           <Route path="/Login" element={<LoginForm/>}/>
+          <Route path="/MangerHome" element={<ManagerEmail/>}/>
         </Routes>
       </header>
     </div>

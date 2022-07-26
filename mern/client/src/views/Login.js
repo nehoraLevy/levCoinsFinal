@@ -6,12 +6,15 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import {getUsers, checkUser} from "./getUsers.js";
 import './Login.css';
 import UpdateForm from './updatePersonalDetails.js';
+import { Link } from 'react-router-dom';
 
 let openRegisterForm=false;
 
 export default function LoginForm() {
     const [open, setOpen] = useState(true);
     const [message,setMessage]=useState("");
+    const [messageLink,setMessageLink]=useState("");
+    const [nextPage, setNextPage]=useState("");
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm()
@@ -36,7 +39,12 @@ export default function LoginForm() {
             setMessage("Invalid username");
         }
         else{
-            setMessage("welcome to your account");
+            setMessageLink(`${username}, go to your account`);
+            if(username=="admin")
+            {
+                setNextPage("/MangerHome");
+            }
+            //TO-DO: handle go to user home page
         }
         //console.log(response.json());
     }
@@ -47,8 +55,8 @@ export default function LoginForm() {
     }
 
     const handleSignIn=()=>{
-        console.log(getUsers());
-        setTimeout(()=>{handleClose()},60000);
+
+        setTimeout(()=>{handleClose()},30000);
     }
 
     const [passwordShown, setPasswordShown] = useState(false);
@@ -76,6 +84,7 @@ export default function LoginForm() {
                             <input type={passwordShown ? "text" : "password"} {...register("password")} placeholder='password'></input> 
                             <i onClick={togglePassword}>{eye}</i>{" "}
                             <div className="messageAfterSign">{message}</div>
+                            <Link className="messageAfterSign" to={nextPage}>{messageLink}</Link>
                             <button className='btn' onClick={handleSignIn}>Sign In</button>
                         </form>
                         <div className='textToRegister'>
@@ -86,6 +95,7 @@ export default function LoginForm() {
                 </div>
             </Modal>
             <RegisterForm isOpen={openRegisterForm}></RegisterForm>
+
         </section>
     )
 }
