@@ -21,7 +21,6 @@ export default function LoginForm() {
     async function onSubmit(data)  {
         const {username, password}=data;
 
-        localStorage.setItem("userInfo", JSON.stringify(data));
         
         const response=await fetch("http://localhost:5000/user/login", {
             method: "POST",
@@ -40,6 +39,8 @@ export default function LoginForm() {
         }
         if(response.status==200){
             setMessage("");
+            localStorage.setItem("user", username);
+            localStorage.setItem("password",password);
             setMessageLink(`${username}, go to your account`);
             if(username=="admin"){
                 setNextPage("/MangerHome");
