@@ -3,6 +3,7 @@ import ChatBot from "react-simple-chatbot";
 import { ThemeProvider } from "styled-components";
 import botAvatar from "./img/logo.png";
 import userAvatar from "./img/user.png";
+import "./chat.css"
 const theme = {
   background: "#f5f8fb",
   fontFamily: "Helvetica",
@@ -20,6 +21,7 @@ const balance= 20;
 function Chat() {
 
   return (
+    <div className="bot">
       <ThemeProvider theme={theme}>
         <ChatBot
           width="450px"
@@ -81,6 +83,7 @@ function Chat() {
           ]}
         />
       </ThemeProvider>
+      </div>
   );
 }
 export default Chat;

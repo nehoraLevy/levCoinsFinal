@@ -5,8 +5,7 @@
     opacity: 0.7;
     width: 600px;
     position:relative;
-    border: 1px solid #2fcc8b;
-    border-radius: 5px;
+    border: 1px solid #ff7b00;
     font-family: "Nunito Sans", sans-serif;
     margin: auto;
     top:100px;
@@ -16,7 +15,7 @@
 {
     font-family: "Nunito Sans", sans-serif;
     font-size: 15px;
-    color:  #2fcc8b;
+    color:  #ff7b00;
     font-weight: 500;
     top:200px;
 }

@@ -10,8 +10,10 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Converters from './converters';
 import "./CurrentAccount.css";
+import {useNavigate} from "react-router-dom"; 
 
 function createData(actionId,type,side,accountID, amount,actionDate) {
+
   return {
     actionId,type,side, accountID,amount,actionDate
   };
@@ -84,13 +86,22 @@ rows.data = [
   createData(123334,'transfer','-', 327000020, 1000540, '12/05/2022'),
   createData(123334,'transfer','-', 327002001, 1000540, '12/05/2022'),
 ];
-export default function CurrentAccount() {
+export default function CurrentAccount(){
+  const navigate = useNavigate();
+
+function OpenChat()
+{
+  document.getElementById("header").classList.add("blure")
+  navigate("/client/Chat")
+}
+
   return (
     <div id="header">
       <div >
         <h1>Hello {rows.name}</h1>
         <h4>account id: {rows.accountNumber}</h4>
         <h4>ballence:<Converters value={rows.ballence} type="usd"></Converters></h4>
+        <div className='icon' onClick={()=>{OpenChat()}}/>
       </div>
         <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
