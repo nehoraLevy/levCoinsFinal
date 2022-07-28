@@ -30,6 +30,8 @@ export default function LoginForm() {
             setMessage("Invalid username");
         }
         else{
+            localStorage.setItem("user",username);
+            localStorage.setItem("password",password)
             navigate("/client")
         }
     }
