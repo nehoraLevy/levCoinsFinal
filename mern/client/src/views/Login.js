@@ -33,12 +33,12 @@ export default function LoginForm() {
           .catch(error => {
             window.alert(error);
             return;
-          });
+        });
         if(response.status==400)
         {
             setMessage("Invalid username");
         }
-        else{
+        if(response.status==200){
             setMessage("");
             setMessageLink(`${username}, go to your account`);
             if(username=="admin"){

@@ -14,7 +14,6 @@ import {Link} from "react-router-dom";
 import "./ResposiveAppBar.css";
 const pages = ['Home','About us', 'Contact us'];
 const settings = ['Login'];
-const {username,password}=localStorage.getItem("userInfo"); //TO-DO: not work
 const ResponsiveAppBar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const handleOpenUserMenu = (event) => {
@@ -41,7 +40,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={username} src="/static/images/avatar/2.jpg" />
+                <Avatar src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu

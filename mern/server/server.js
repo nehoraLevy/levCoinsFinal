@@ -23,11 +23,13 @@ app.use(bodyParser.json(), urlencodedParser);
 const dbo = require("./db/connect");
 
  
-app.listen(port, () => {
+app.listen(port, async function()
+ {
   // perform a database connection when server starts
   dbo.connectToServer(function (err) {
     if (err) console.error(err);
  
   });
   console.log(`Server is running on port: ${port}`);
+
 });
