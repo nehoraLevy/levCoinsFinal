@@ -21,7 +21,7 @@ export default function WarpTransfer()
       let amount=data.one.amount;
       let reason=data.one.transferReason;
       let verify;
-      if(data.two.password===localStorage.getItem("password").password)
+      if(data.two.password===localStorage.getItem("password"))
       {
         verify=true;
       }
@@ -30,6 +30,7 @@ export default function WarpTransfer()
       }
       if(verify)
       {
+        console.log(33);
         const response= await fetch("http://localhost:5000/transaction/add", {
           method: "POST",
           headers: {
