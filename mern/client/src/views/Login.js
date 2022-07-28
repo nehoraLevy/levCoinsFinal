@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import { useForm } from 'react-hook-form';
 import Modal from '@mui/material/Modal';
-import {getUsers} from "./getUsers.js";
 import './Login.css';
 import {useNavigate} from "react-router-dom"; 
 
@@ -10,7 +9,7 @@ export default function LoginForm() {
     const [open, setOpen] = useState(true);
     const [message,setMessage]=useState("");
     const handleClose = () => setOpen(false);
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit} = useForm()
     async function onSubmit(data)  {
         const {username, password}=data;
 
@@ -56,7 +55,6 @@ export default function LoginForm() {
                             <input type="text" {...register("username")} placeholder='username' />   
                             <input type={"password"} {...register("password")} placeholder='password'></input> 
                             <div className="messageAfterSign">{message}</div>
-                            <Link className="messageAfterSign" to={nextPage}>{messageLink}</Link>
                             <button className='btn' onClick={handleSignIn}>Sign In</button>
                         </form>
                         <div className='textToRegister'>

@@ -4,7 +4,6 @@ import ResponsiveAppBar from "./views/ResponsiveAppBar.js";
 import ContactUs from './views/ContactUs.js';
 import LoginForm from './views/Login.js';
 import { Routes, Route } from 'react-router';
-import Chat from './views/chat.js';
 import React from "react";
 import ClientAppBar from './views/ClientAppBar.js';
 import WarpTransfer from "./views/money transfer/WarpTransfer";
