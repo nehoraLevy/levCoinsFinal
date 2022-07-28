@@ -7,18 +7,20 @@ import "./Forms.css"
 export const FormOne = ({ formContent }) => {
   const methods = useFormContext();
   const { reset, register } = methods;
-  const options = [
-    {name: 'User1', value: '1'},
-    {name: 'User2', value: '2'}
+
+  const options = [         //TO-DO: get all users names
+    {name: 'User1', value:'1'},
+    {name: 'User2',  value:'2'}
 ];
+  let selectedName="";
 
   useEffect(() => {
     reset({ ...formContent.one }, { errors: true });
   }, []);
 
   return (
-    <form className="form">
-      <SelectSearch
+    <form className="form" >
+        <input
         name="selectUser"
         placeholder="to who to transfer?..."
         options={options}
@@ -35,6 +37,7 @@ export const FormOne = ({ formContent }) => {
         placeholder="write your reason..."
         {...register('transferReason', { required: true })}
       />
+
     </form>
   );
 };
@@ -49,7 +52,7 @@ export const FormTwo = ({ formContent }) => {
   
 
   return (
-      <form className="form">
+      <form className="form" >
         <input
           name="confirmPassword"
           type="password"

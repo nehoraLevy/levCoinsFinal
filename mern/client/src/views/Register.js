@@ -18,7 +18,7 @@ export default function UpdateForm(props) {
             //TO-DO- to empty the input boxes
         }
 
-        localStorage.setItem("userInfo", JSON.stringify(data));
+        //localStorage.setItem("userInfo", JSON.stringify(data));
 
         
         const response= await fetch("http://localhost:5000/user/add", {

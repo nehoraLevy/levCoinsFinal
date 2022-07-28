@@ -15,6 +15,8 @@ app.use(express.json());
 
 app.use(require("./routes/user"));
 
+app.use(require("./routes/transactions"));
+
 
 const urlencodedParser=bodyParser.urlencoded({extends:false});
 app.use(bodyParser.json(), urlencodedParser);

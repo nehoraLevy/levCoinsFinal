@@ -11,6 +11,10 @@ export default function WrapLoan()
     const [open, setOpen] = useState(true);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    async function handleFinish(data){
+      console.log("23:", data);
+    }
   
     useEffect(() => {
       console.log("FORM CONTEXT", watch(), errors);
@@ -23,7 +27,7 @@ export default function WrapLoan()
         <FormProvider {...methods}>
         <section>
             <Modal style={{display:'block',alignItems:'center',justifyContent:'center'}} disableEnforceFocus open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-                <FormStepper stepDescription={stepDescription} steps={steps} header={header}/>
+                <FormStepper stepDescription={stepDescription} steps={steps} header={header} onFinish={handleFinish}/>
             </Modal>
         </section>
       </FormProvider>

@@ -5,8 +5,8 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+//import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+//import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import DoneIcon from '@mui/icons-material/Done';
 import Typography from "@mui/material/Typography";
 import { FormOne, FormTwo, FormThree } from "./Forms";
@@ -84,6 +84,7 @@ export const FormStepper = (props) => {
 
   const handleSubmit = form => {
     if (_.isEmpty(errors)) {
+      props.onFinish(form);
       console.log("submit", form);
     }
   };
@@ -119,9 +120,9 @@ export const FormStepper = (props) => {
               <div>
                 {getStepContent(activeStep, compiledForm)}
                 <div className="btnContainer">
-                  <Button onClick={handleBack}><ArrowBackIosIcon/></Button>
+                  <Button onClick={handleBack}>Back</Button>
                   <Button variant="contained" color="primary" onClick={handleNext}>
-                    {activeStep === steps.length - 1 ? <DoneIcon/> : <ArrowForwardIosIcon/>}
+                    {activeStep === steps.length - 1 ? "Done" : "Next"}
                   </Button>
                 </div>
               </div>
