@@ -12,7 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link} from "react-router-dom"; 
 import "./ResposiveAppBar.css";
-const pages = ['Current',/*'Chat',*/'Loans','Transfer', 'Update Details'];
+const pages = ['Current',/*'Chat',*/'Loans','New Transfer','New Loan', 'Update Details'];
 const settings = ['Logout'];
 const ClientAppBar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -62,7 +62,7 @@ const ClientAppBar = () => {
               {settings.map((setting,index) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center" >
-                  <Link style={{textDecoration: "none", color:"black"}} to={`/${setting}`}>{setting}</Link>
+                  <Link style={{textDecoration: "none", color:"black"}} to={`/`}>{setting}</Link>
                   </Typography>
                 </MenuItem>
               ))}

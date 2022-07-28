@@ -49,7 +49,6 @@ function convertToArrow(type){
     return <span style={{color:"green"}}>&#8593;</span>
   }
   return <span style={{color:"red"}}>&#8595;</span>
-
 }
 Row.propTypes = {
     row: PropTypes.shape({
@@ -59,7 +58,6 @@ Row.propTypes = {
     accountID: PropTypes.number.isRequired,
     amount: PropTypes.number.isRequired,
     actionDate: PropTypes.string.isRequired,
-
   }).isRequired,
 };
 let rows={}
@@ -84,7 +82,6 @@ rows.data = [
   createData(123334,'transfer','-', 327009000, 1000540, '12/05/2022'),
   createData(123334,'transfer','-', 327000020, 1000540, '12/05/2022'),
   createData(123334,'transfer','-', 327002001, 1000540, '12/05/2022'),
-
 ];
 export default function CurrentAccount() {
   return (
@@ -92,7 +89,7 @@ export default function CurrentAccount() {
       <div >
         <h1>Current Account</h1>
         <h4>account id: {rows.accountNumber}</h4>
-        <h4>ballence:<Converters value={rows.ballence} type="ils"></Converters></h4>
+        <h4>ballence:<Converters value={rows.ballence} type="usd"></Converters></h4>
       </div>
         <TableContainer component={Paper}>
         <Table aria-label="collapsible table">

@@ -14,7 +14,7 @@ function createData(id,name,password, email,address) {
     };
   }
 let message="";
-export default function UpdateForm(props) {
+export default function UpdateDetails(props) {
     const rows = createData( 327009783,'john due','00010', 'a@gmail.com','a 69 jerusalem');
 
     const [open, setOpen] = useState(true);
