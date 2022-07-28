@@ -14,7 +14,6 @@ export default function LoginForm() {
     async function onSubmit(data)  {
         const {username, password}=data;
 
-        localStorage.setItem("userInfo", JSON.stringify(data));
         
         const response=await fetch("http://localhost:5000/user/login", {
             method: "POST",
@@ -26,7 +25,7 @@ export default function LoginForm() {
           .catch(error => {
             window.alert(error);
             return;
-          });
+        });
         if(response.status==400)
         {
             setMessage("Invalid username");

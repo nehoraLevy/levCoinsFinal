@@ -23,6 +23,7 @@ export default function RegisterForm(props) {
         }
 
         localStorage.setItem("userInfo", JSON.stringify(data));
+
         
         const response= await fetch("http://localhost:5000/user/add", {
             method: "POST",
