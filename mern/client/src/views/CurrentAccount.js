@@ -98,7 +98,7 @@ function OpenChat()
   return (
     <div id="header">
       <div >
-        <h1>Hello {rows.name}</h1>
+        <h1>Hello {localStorage.getItem("user")}</h1>
         <h4>account id: {rows.accountNumber}</h4>
         <h4>ballence:<Converters value={rows.ballence} type="usd"></Converters></h4>
         <div className='icon' onClick={()=>{OpenChat()}}/>

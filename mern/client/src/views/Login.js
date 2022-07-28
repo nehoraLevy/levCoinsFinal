@@ -11,9 +11,7 @@ export default function LoginForm() {
     const handleClose = () => setOpen(false);
     const { register, handleSubmit} = useForm()
     async function onSubmit(data)  {
-        const {username, password}=data;
-
-        
+        const {username, password}=data;        
         const response=await fetch("http://localhost:5000/user/login", {
             method: "POST",
             headers: {

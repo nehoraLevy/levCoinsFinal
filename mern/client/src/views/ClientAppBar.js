@@ -10,9 +10,10 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import { getUserByName } from './getUsers';
 import {Link} from "react-router-dom"; 
 import "./ResposiveAppBar.css";
-const pages = ['Current',/*'Chat',*/'Loans','New Transfer','New Loan', 'Update Details'];
+const pages = ['Current','Loans','New Transfer','New Loan', 'Update Details'];
 const settings = ['Logout'];
 const ClientAppBar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -22,6 +23,7 @@ const ClientAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  console.log(getUserByName(localStorage.getItem("user")))
   let rows={}
   rows.name="batya lasry"
   return (
@@ -42,7 +44,7 @@ const ClientAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt={rows.name.toUpperCase()} src="/static/images/avatar/2.jpg" />
+              <Avatar alt={localStorage.getItem("user").toUpperCase()} src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
