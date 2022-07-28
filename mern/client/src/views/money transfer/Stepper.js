@@ -43,14 +43,17 @@ export const FormStepper = (props) => {
     switch (activeStep) {
       case 0:
         setCompiledForm({ ...compiledForm, one: form });
+        console.log("46",form);
         canContinue = true;
         break;
       case 1:
         setCompiledForm({ ...compiledForm, two: form });
+        console.log("51",form);
         canContinue = true;
         break;
       case 2:
         setCompiledForm({ ...compiledForm, three: form });
+        console.log("56",form);
         canContinue = handleSubmit({ ...compiledForm, three: form });
         break;
       default:

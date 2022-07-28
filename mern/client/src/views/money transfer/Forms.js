@@ -23,7 +23,6 @@ export const FormOne = ({ formContent }) => {
         <input
         name="selectUser"
         placeholder="to who to transfer?..."
-        options={options}
         {...register('selectUser', { required: true })}
       />
       <input
@@ -37,7 +36,6 @@ export const FormOne = ({ formContent }) => {
         placeholder="write your reason..."
         {...register('transferReason', { required: true })}
       />
-
     </form>
   );
 };
