@@ -7,7 +7,7 @@ import { Routes, Route } from 'react-router';
 import Chat from './views/chat.js';
 import FormPage from './views/contact.js';
 import React from "react";
-
+import ClientAppBar from './views/ClientAppBar.js';
 import WarpTransfer from "./views/money transfer/WarpTransfer";
 import CollapsibleTable from "./views/BankLoans.js";
 import ManagerEmail from "./views/ManagerEmail.js"
@@ -31,9 +31,16 @@ function App() {
     
     <div className="App">
       <header className="App-header">
-      <ResponsiveAppBar></ResponsiveAppBar>
       <Routes>
-        <Route path="/" element={<Slider/>}/>
+          <Route  path="/" element={<ResponsiveAppBar/>}/>
+          <Route path="/Home" element={<ResponsiveAppBar/>}/>
+          <Route path="/Contact%20us" element={<ResponsiveAppBar/>}/>
+          <Route path="/Login" element={<ResponsiveAppBar/>}/>
+          <Route  path="/client" element={<ClientAppBar/>}/>
+
+      </Routes>
+      <Routes>
+          <Route path="/" element={<Slider/>}/>
           <Route path="/Home" element={<Slider/>}/>
           <Route path="/Contact%20us" element={<ContactUs/>}/>
           <Route path="/Login" element={<LoginForm/>}/>

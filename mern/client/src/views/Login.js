@@ -6,10 +6,13 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import {getUsers, checkUser} from "./getUsers.js";
 import './Login.css';
 import UpdateForm from './updatePersonalDetails.js';
+import {Link,useNavigate} from "react-router-dom"; 
+
 
 let openRegisterForm=false;
 
 export default function LoginForm() {
+    const navigate = useNavigate();
     const [open, setOpen] = useState(true);
     const [message,setMessage]=useState("");
     const handleOpen = () => setOpen(true);
@@ -36,7 +39,7 @@ export default function LoginForm() {
             setMessage("Invalid username");
         }
         else{
-            setMessage("welcome to your account");
+            navigate("/client")
         }
         //console.log(response.json());
     }

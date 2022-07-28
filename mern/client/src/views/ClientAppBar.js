@@ -12,9 +12,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link} from "react-router-dom"; 
 import "./ResposiveAppBar.css";
-const pages = ['Home','Current','Chat','Loans','Transfer', 'Update Details','Contact us'];
+const pages = ['Current',/*'Chat',*/'Loans','Transfer', 'Update Details'];
 const settings = ['Logout'];
-const ResponsiveAppBar = () => {
+const ClientAppBar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -33,7 +33,7 @@ const ResponsiveAppBar = () => {
                 key={page}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <Link  onClick={console.log(`/${page}`)} style={{textDecoration: "none", color:"white"}} to={`/${page}`}>{page}</Link>
+                <Link  onClick={console.log(`/${page}`)} style={{textDecoration: "none", color:"white"}} to={`/client/${page}`}>{page}</Link>
               </Button>
             ))}
           </Box>
@@ -73,4 +73,4 @@ const ResponsiveAppBar = () => {
     </AppBar>
   );
 };
-export default ResponsiveAppBar;
+export default ClientAppBar;
