@@ -22,6 +22,8 @@ const ClientAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  let rows={}
+  rows.name="batya lasry"
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -40,7 +42,7 @@ const ClientAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <Avatar alt={rows.name.toUpperCase()} src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
