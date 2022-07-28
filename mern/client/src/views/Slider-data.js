@@ -1,6 +1,5 @@
 export const sliderData = [
     {
-      //image: "https://www.jbt.bank/getattachment/resources/welcome-to-jbt/Welcome-to-JBT-Banner-63621-(1).jpg",
       image:"https://thumbs.dreamstime.com/b/welcome-poster-spectrum-brush-strokes-white-background-colorful-gradient-brush-design-vector-paper-illustration-r-welcome-125370796.jpg",
       heading: "to your LevCoins Bank",
     },

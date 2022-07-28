@@ -61,6 +61,7 @@ Row.propTypes = {
   }).isRequired,
 };
 let rows={}
+rows.name='Batya Lasry'
 rows.accountNumber=123443233;
 rows.ballence=334555;
 rows.data = [
@@ -87,7 +88,7 @@ export default function CurrentAccount() {
   return (
     <div id="header">
       <div >
-        <h1>Current Account</h1>
+        <h1>Hello {rows.name}</h1>
         <h4>account id: {rows.accountNumber}</h4>
         <h4>ballence:<Converters value={rows.ballence} type="usd"></Converters></h4>
       </div>

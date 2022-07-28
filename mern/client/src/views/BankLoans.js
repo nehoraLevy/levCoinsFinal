@@ -116,6 +116,16 @@ const rows = [
 ];
 export default function Loans() {
   return (
+    <div>
+    <div id="header">
+      <br/>
+      <br/>
+      <h2><strong>My Loans</strong></h2>
+      <br/>
+      <br/>
+      <br/>
+
+    </div>
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
@@ -134,5 +144,6 @@ export default function Loans() {
         </TableBody>
       </Table>
     </TableContainer>
+    </div>
   );
 }

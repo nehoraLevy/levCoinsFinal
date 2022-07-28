@@ -2,6 +2,7 @@
 import React, { useEffect} from "react";
 import { FormStepper } from "./Stepper";
 import { useForm, FormProvider } from "react-hook-form";
+import "./Wrap.css";
 
 export default function WarpTransfer()
 {
@@ -14,10 +15,13 @@ export default function WarpTransfer()
     const steps= ["Transfer Details", "Verfiy", "Finish"];
     const header="Transfer";
     return(
+      <div>
+      <img src='https://www.wealthandfinance-news.com/wp-content/uploads/2020/01/market.jpg' className="background" alt=''/>
         <FormProvider {...methods}>
         <section>
-            <FormStepper stepDescription={stepDescription} steps={steps} header={header} />
+                <FormStepper stepDescription={stepDescription} steps={steps} header={header}/>
         </section>
-      </FormProvider>
+        </FormProvider>
+        </div>
     )
 }

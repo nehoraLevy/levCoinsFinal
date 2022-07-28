@@ -15,6 +15,7 @@ import "./ResposiveAppBar.css";
 const pages = ['Home','About us', 'Contact us'];
 const settings = ['Login'];
 const ResponsiveAppBar = () => {
+  localStorage.clear();
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
