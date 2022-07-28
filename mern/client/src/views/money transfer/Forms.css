@@ -14,7 +14,7 @@
     margin-top: 20px;
     box-sizing: border-box;
     outline: none;
-    border-color:  #2fcc8b;
+    border-color:  #ff7b00;
   }
   
 
@@ -25,7 +25,7 @@
   position: relative;
   font-family: "Nunito Sans", sans-serif;
   box-sizing: border-box;
-  border-color:  #2fcc8b;
+  border-color:  #ff7b00;
 }
 
 .select-search *,
@@ -131,7 +131,7 @@
 }
 
 .select-search__option.is-selected {
-  background: #2fcc8b;
+  background: #ff7b00;
   color: #fff;
 }
 
@@ -142,7 +142,7 @@
 
 .select-search__option.is-highlighted.is-selected,
 .select-search__option.is-selected:hover {
-  background: #2eb378;
+  background: #ff7b00;
   color: #fff;
 }
 
@@ -201,7 +201,7 @@
 }
 
 .select-search:not(.select-search--multiple) .select-search__input{
-  border-color: #2fcc8b;
+  border-color: #ff7b00;
 }
 
 .select-search:not(.select-search--multiple) .select-search__select {

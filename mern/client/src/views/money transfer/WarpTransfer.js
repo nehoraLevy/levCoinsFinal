@@ -16,7 +16,7 @@ export default function WarpTransfer()
     const header="Transfer";
     return(
       <div>
-      <img src='https://www.wealthandfinance-news.com/wp-content/uploads/2020/01/market.jpg' className="background" alt=''/>
+      <div src='https://www.wealthandfinance-news.com/wp-content/uploads/2020/01/market.jpg' className="background" alt=''/>
         <FormProvider {...methods}>
         <section>
                 <FormStepper stepDescription={stepDescription} steps={steps} header={header}/>
