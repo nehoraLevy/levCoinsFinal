@@ -4,17 +4,15 @@ import ResponsiveAppBar from "./views/ResponsiveAppBar.js";
 import ContactUs from './views/ContactUs.js';
 import LoginForm from './views/Login.js';
 import { Routes, Route } from 'react-router';
-import Chat from './views/chat.js';
 import React from "react";
 import ClientAppBar from './views/ClientAppBar.js';
 import WarpTransfer from "./views/money transfer/WarpTransfer";
 import CollapsibleTable from "./views/BankLoans.js";
-import ManagerEmail from "./views/ManagerEmail.js"
 import RegisterForm from './views/Register.js';
 import WrapLoan from "./views/money transfer/WarpLoan.js";
 import CurrentAccount from './views/CurrentAccount.js';
 import UpdateDetails from './views/updatePersonalDetails.js';
-
+import Chat from './views/chat.js';
 function App() {
   return (
     
@@ -31,6 +29,7 @@ function App() {
           <Route  path="/client/Loans" element={<ClientAppBar/>}/>
           <Route  path="/client/New%20Transfer" element={<ClientAppBar/>}/>
           <Route  path="/client/Update%20Details" element={<ClientAppBar/>}/>
+          <Route  path="/client/Chat" element={<ClientAppBar/>}/>
           <Route  path="/client/New%20Loan" element={<ClientAppBar/>}/>
       </Routes>
       <Routes>
@@ -45,6 +44,13 @@ function App() {
           <Route  path="/client/New%20Transfer" element={<WarpTransfer/>}/>
           <Route  path="/client/Update%20Details" element={<UpdateDetails/>}/>
           <Route  path="/client/New%20Loan" element={<WrapLoan/>}/>
+          <Route  path="/client/Chat" element={<CurrentAccount/>}/>
+
+
+        </Routes>
+        <Routes>
+          <Route  path="/client/Chat" element={<Chat/>}/>
+
         </Routes>
       </header>
     </div>
