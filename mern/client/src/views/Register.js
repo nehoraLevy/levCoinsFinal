@@ -2,16 +2,20 @@ import React, {useState} from 'react';
 import { useForm } from 'react-hook-form';
 import Modal from '@mui/material/Modal'
 import './Register.css';
+import {useNavigate} from "react-router-dom"; 
+
 
 let message="";
-export default function UpdateForm(props) {
+export default function RegisterForm(props) {
     const [open, setOpen] = useState(true);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const navigate = useNavigate();
 
     
     async function onSubmit(data) {
+
         const {username, password,confirmpwd, email, mobile, InitialAmount}=data;
         if (password !== confirmpwd) {
             message="Passwords do not match";
@@ -37,25 +41,12 @@ export default function UpdateForm(props) {
     }
     const handleSignIn=()=>{
         message="Your Request sended to manager!";
-        setTimeout(()=>{handleClose()},10000);
+        setTimeout(()=>{            
+        navigate("/")
+
+        },4000);
     }
-    const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-    };
-    /**onSubmit להוסיף בה לוגיקה של הוספה למונגו ושליחת מייל ואחר כך חזרה למסך הבית ואז יצטרך להתחבר כמו לקוח רשום  */
-    //בנוסף יש לשלוח מייל למנהל לאישור 
-    if(!props.isOpen)
-    {
-        return null;
-    }
+
     return (
 
         <section>
@@ -75,7 +66,7 @@ export default function UpdateForm(props) {
 
                             {errors.mobile?.type === "required" && "Mobile Number is required"}
                             {errors.mobile?.type === "maxLength" && "Max Length Exceed"}
-                            <button className='btn' onClick={handleSignIn}>Sign In</button>
+                            <button className='btn' onClick={handleSignIn}>Register</button>
                             <div className="messageAfterSign">{message}</div>
                         </form>
 

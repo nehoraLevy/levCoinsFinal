@@ -1,19 +1,16 @@
-
-
 .stepper
 {
     max-width: 600px;
+    background-color: white;
+    opacity: 0.7;
     width: 600px;
-    display:block;
+    position:relative;
     border: 1px solid #2fcc8b;
     border-radius: 5px;
-    /* box-shadow: 1px 3px 10px #e9ecef; */
-    background-color: white;
     font-family: "Nunito Sans", sans-serif;
-    
+    margin: auto;
+    top:100px;
 }
-
-
 
 .text
 {
@@ -21,7 +18,5 @@
     font-size: 15px;
     color:  #2fcc8b;
     font-weight: 500;
-    display: block;
-    text-align: center;
+    top:200px;
 }
-
