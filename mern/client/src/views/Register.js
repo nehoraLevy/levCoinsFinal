@@ -9,10 +9,18 @@ export default function UpdateForm(props) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
+    
     async function onSubmit(data) {
-        console.log(data);
-        const {username, password, email, mobile, InitialAmount}=data;
-        await fetch("http://localhost:5000/user/add", {
+        const {username, password,confirmpwd, email, mobile, InitialAmount}=data;
+        if (password !== confirmpwd) {
+            message="Passwords do not match";
+            //TO-DO- to empty the input boxes
+        }
+
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        
+        const response= await fetch("http://localhost:5000/user/add", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -23,11 +31,11 @@ export default function UpdateForm(props) {
             window.alert(error);
             return;
           });
+        console.log(response.json());
 
     }
     const handleSignIn=()=>{
         message="Your Request sended to manager!";
-        console.log(document.getElementsByClassName("textAfterSign"));
         setTimeout(()=>{handleClose()},10000);
     }
     const style = {
