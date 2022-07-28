@@ -12,11 +12,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link} from "react-router-dom"; 
 import "./ResposiveAppBar.css";
-const pages = ['Home','About us', 'Contact us'];
-const settings = ['Login'];
-const {username,password}=localStorage.getItem("userInfo"); //TO-DO: not work
-const ResponsiveAppBar = () => {
-  localStorage.clear();
+const pages = ['Current',/*'Chat',*/'Loans','New Transfer','New Loan', 'Update Details'];
+const settings = ['Logout'];
+const ClientAppBar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -35,14 +33,14 @@ const ResponsiveAppBar = () => {
                 key={page}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <Link  onClick={console.log(`/${page}`)} style={{textDecoration: "none", color:"white"}} to={`/${page}`}>{page}</Link>
+                <Link  onClick={console.log(`/${page}`)} style={{textDecoration: "none", color:"white"}} to={`/client/${page}`}>{page}</Link>
               </Button>
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={username} src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -64,7 +62,7 @@ const ResponsiveAppBar = () => {
               {settings.map((setting,index) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center" >
-                  <Link style={{textDecoration: "none", color:"black"}} to={`/${setting}`}>{setting}</Link>
+                  <Link style={{textDecoration: "none", color:"black"}} to={`/`}>{setting}</Link>
                   </Typography>
                 </MenuItem>
               ))}
@@ -75,4 +73,4 @@ const ResponsiveAppBar = () => {
     </AppBar>
   );
 };
-export default ResponsiveAppBar;
+export default ClientAppBar;

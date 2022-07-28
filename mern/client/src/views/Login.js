@@ -1,23 +1,16 @@
 import React, {useState} from 'react';
 import { useForm } from 'react-hook-form';
 import Modal from '@mui/material/Modal';
-import RegisterForm from './Register.js';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import {getUsers, checkUser} from "./getUsers.js";
+import {getUsers} from "./getUsers.js";
 import './Login.css';
-import UpdateForm from './updatePersonalDetails.js';
-import { Link } from 'react-router-dom';
-
-let openRegisterForm=false;
+import {useNavigate} from "react-router-dom"; 
 
 export default function LoginForm() {
+    const navigate = useNavigate();
     const [open, setOpen] = useState(true);
     const [message,setMessage]=useState("");
-    const [messageLink,setMessageLink]=useState("");
-    const [nextPage, setNextPage]=useState("");
-    const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const { register, handleSubmit, watch, formState: { errors } } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm()
     async function onSubmit(data)  {
         const {username, password}=data;
 
@@ -39,20 +32,13 @@ export default function LoginForm() {
             setMessage("Invalid username");
         }
         else{
-            setMessage("");
-            setMessageLink(`${username}, go to your account`);
-            if(username=="admin")
-            {
-                setNextPage("/MangerHome");
-            }
-            //TO-DO: handle go to user home page
+            navigate("/client")
         }
-        //console.log(response.json());
     }
     const handleClickRegisterLink=()=>
     {
+        navigate("/Register")
         handleClose();
-        openRegisterForm=true;
     }
 
     const handleSignIn=()=>{
@@ -60,18 +46,6 @@ export default function LoginForm() {
         setTimeout(()=>{handleClose()},30000);
     }
 
-    const [passwordShown, setPasswordShown] = useState(false);
-
-    // Password toggle handler
-    const togglePassword = () => {
-      // When the handler is invoked
-      // inverse the boolean state of passwordShown
-      setPasswordShown(!passwordShown);
-    };
-    
-    const eye=<VisibilityIcon/>;
-
-    //פה בלחיצה נבדוק במסד הנתונים האם המשתמש קיים והאם הסיסמאות תואמות ואםם כן יכנס לאזור האישי...   
     return (
         <section>
             <Modal style={{display:'flex',alignItems:'center',justifyContent:'center'}} disableEnforceFocus open={open} onClose={handleClose}  aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
@@ -79,11 +53,9 @@ export default function LoginForm() {
                     <div className="col-1">
                         <h2 className='header'>Login</h2>
                         <span>please, fill the fields</span>
-
                         <form id='LoginField' className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>
                             <input type="text" {...register("username")} placeholder='username' />   
-                            <input type={passwordShown ? "text" : "password"} {...register("password")} placeholder='password'></input> 
-                            <i onClick={togglePassword}>{eye}</i>{" "}
+                            <input type={"password"} {...register("password")} placeholder='password'></input> 
                             <div className="messageAfterSign">{message}</div>
                             <Link className="messageAfterSign" to={nextPage}>{messageLink}</Link>
                             <button className='btn' onClick={handleSignIn}>Sign In</button>
@@ -95,8 +67,6 @@ export default function LoginForm() {
                     </div>
                 </div>
             </Modal>
-            <RegisterForm isOpen={openRegisterForm}></RegisterForm>
-
         </section>
     )
 }
