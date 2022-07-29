@@ -31,7 +31,11 @@ export async function getUsers() {
 
 export async function getUserByName(name) {
   let users;
-  axios.get('http://localhost:5000/:',{params:{name}})     
+  axios.get('http://localhost:5000/',{
+    params:{
+      name:String(name)
+    }
+  })     
   .then(response => {
     console.log(response.data);
       users=response.json();

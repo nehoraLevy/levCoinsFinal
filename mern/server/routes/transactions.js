@@ -33,5 +33,16 @@ Routes.route("/transaction/:sender").get(function (req, res) {
         });
 });
 
+Routes.route("/transaction/:reciever").get(function (req, res) {
+  let db_connect = dbo.getDb();
+  let myquery = { reciever: String( req.params.reciever )};
+  db_connect
+      .collection("transactions")
+      .findOne(myquery, function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+});
+
 
 module.exports = Routes;
