@@ -13,7 +13,33 @@ export default function WrapLoan()
     const handleClose = () => setOpen(false);
 
     async function handleFinish(data){
-      console.log("23:", data);
+      let sender=localStorage.getItem("user");
+      let reciever=data.one.selectUser;
+      let amount=data.one.amount;
+      let reason=data.one.transferReason;
+      let verify;
+      if(data.two.password===localStorage.getItem("password"))
+      {
+        verify=true;
+      }
+      else{
+        verify=false;
+      }
+      if(verify)
+      {
+        const response= await fetch("http://localhost:5000/loans/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({sender, reciever, amount}),
+        })
+        .catch(error => {
+          window.alert(error);
+          return;
+        });
+      }
+      
     }
   
     useEffect(() => {
