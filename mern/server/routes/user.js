@@ -28,7 +28,7 @@ Routes.route("/user").get(function (req, res) {
      res.json(result);
    });
 });
-
+/*
 // This section will help you get a single record by id
 Routes.route("/user/:id").get(function (req, res) {
  let db_connect = dbo.getDb();
@@ -40,9 +40,9 @@ Routes.route("/user/:id").get(function (req, res) {
        res.json(result);
      });
 });
-
+*/
 // This section will help you get a single user by name
-Routes.route("/user/:?name").get(function (req, res) {
+Routes.route("/user/:name").get(function (req, res) {
   let db_connect = dbo.getDb();
   let myquery = { name: String( req.params.name )};
   db_connect

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import{useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,7 +11,10 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Converters from './converters';
 import "./CurrentAccount.css";
-import {useNavigate} from "react-router-dom"; 
+import {useNavigate} from "react-router-dom";
+import axios from 'axios'
+
+
 
 function createData(actionId,type,side,accountID, amount,actionDate) {
 
@@ -62,10 +66,11 @@ Row.propTypes = {
     actionDate: PropTypes.string.isRequired,
   }).isRequired,
 };
-let rows={}
-rows.name='Batya Lasry'
-rows.accountNumber=123443233;
-rows.ballence=334555;
+
+let rows={};
+
+
+
 rows.data = [
   createData(123,'lend','+', 327009783, 200,  '12/12/2021'),
   createData(1234,'transfer','+', 32700001, 100000, '12/07/2022'),
@@ -88,19 +93,40 @@ rows.data = [
 ];
 export default function CurrentAccount(){
   const navigate = useNavigate();
+  const [details,setDetails]=useState({});
+  const [isFetch, setIsFetch]=useState(false);
 
-function OpenChat()
-{
-  document.getElementById("header").classList.add("blure")
-  navigate("/client/Chat")
-}
+  
+  useEffect(()=>{
+    const getData = async () => {
+      let name=localStorage.getItem("user");
+      axios.get('http://localhost:5000/user/'+name)     
+      .then(response => {
+          setDetails(response.data);
+          setIsFetch(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      
+    }
+    getData();
+  }, []);
+
+
+
+  function OpenChat()
+  {
+    document.getElementById("header").classList.add("blure")
+    navigate("/client/Chat")
+  }
 
   return (
     <div id="header">
       <div >
         <h1>Hello {localStorage.getItem("user")}</h1>
-        <h4>account id: {rows.accountNumber}</h4>
-        <h4>ballence:<Converters value={rows.ballence} type="usd"></Converters></h4>
+        <h4>account id: {isFetch ? Number(details.userNumber) : " "}</h4>
+        <h4>ballance:<Converters value={isFetch ? Number(details.AmountInDollars): 0} type="usd"></Converters></h4>
         <div className='icon' onClick={()=>{OpenChat()}}/>
       </div>
         <TableContainer component={Paper}>

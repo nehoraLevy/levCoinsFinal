@@ -30,19 +30,11 @@ export async function getUsers() {
 }
 
 export async function getUserByName(name) {
-  let users;
-  axios.get('http://localhost:5000/',{
-    params:{
-      name:String(name)
-    }
-  })     
+  axios.get('http://localhost:5000/user/'+name)     
   .then(response => {
-    console.log(response.data);
-      users=response.json();
+      return response.data;
   })
   .catch((error) => {
     console.log(error);
   })
-
-  return users;
 }
