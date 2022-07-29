@@ -14,11 +14,10 @@ export default function WrapLoan()
 
     async function handleFinish(data){
       let sender=localStorage.getItem("user");
-      let reciever=data.one.selectUser;
-      let amount=data.one.amount;
-      let reason=data.one.transferReason;
+      let reciever=data.two.selectUser;
+      let amount=data.two.amount;
       let verify;
-      if(data.two.password===localStorage.getItem("password"))
+      if(data.three.password===localStorage.getItem("password"))
       {
         verify=true;
       }
@@ -46,8 +45,8 @@ export default function WrapLoan()
       console.log("FORM CONTEXT", watch(), errors);
     }, [watch, errors]);
 
-    const stepDescription=["Fill Your Loan Details", "We want to verfiy you", "You Finished in success!"]
-    const steps= ["Loans Details", "Verfiy", "Finish"];
+    const stepDescription=["Let's Go","Fill Your Loan Details", "We want to verfiy you", "You Finished in success!"]
+    const steps= ["Let's Go","Loan Details", "Verfiy", "Finish"];
     const header="Loan";
     return(
       <div>

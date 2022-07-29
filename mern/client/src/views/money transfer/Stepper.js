@@ -9,19 +9,19 @@ import Button from "@mui/material/Button";
 //import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import DoneIcon from '@mui/icons-material/Done';
 import Typography from "@mui/material/Typography";
-import { FormOne, FormTwo, FormThree } from "./Forms";
+import { FormOne, FormTwo, FormThree, FormFirst } from "./Forms";
 import "./Stepper.css";
 
 
 function getStepContent(step, formContent) {
   switch (step) {
     case 0:
-      return <FormOne {...{ formContent }} />;
+      return <FormFirst {...{ formContent }} />; 
     case 1:
-      return (
-        <FormTwo {...{ formContent }} />
-      );
+      return <FormOne {...{ formContent }} />;
     case 2:
+      return <FormTwo {...{ formContent }} />
+    case 3:
       return <FormThree {...{ formContent }} />;
     default:
       return "Unknown step";
@@ -39,23 +39,25 @@ export const FormStepper = (props) => {
 
   const handleNext = () => {
     let canContinue = true;
-
+    console.log(activeStep);
     switch (activeStep) {
       case 0:
         setCompiledForm({ ...compiledForm, one: form });
-        console.log("46",form);
         canContinue = true;
         break;
       case 1:
         setCompiledForm({ ...compiledForm, two: form });
-        console.log("51",form);
         canContinue = true;
         break;
       case 2:
         setCompiledForm({ ...compiledForm, three: form });
-        console.log("56",form);
-        canContinue = handleSubmit({ ...compiledForm, three: form });
+        canContinue = true;
+        //canContinue = handleSubmit({ ...compiledForm, three: form });
         break;
+      case 3:
+          setCompiledForm({ ...compiledForm, four: form });
+          canContinue = handleSubmit({ ...compiledForm, four: form });
+          break;
       default:
         return "not a valid step";
     }
@@ -74,6 +76,9 @@ export const FormStepper = (props) => {
         case 2:
           setCompiledForm({ ...compiledForm, three: form });
           break;
+        case 3:
+            setCompiledForm({ ...compiledForm, four: form });
+            break;
         default:
           return "not a valid step";
       }
