@@ -7,20 +7,14 @@
     height: 100%;
     width: 100%;
     position: absolute;
-    left: 0%;
+    left: 20%;
     margin-left:-256px;
 }
-
-/*ul{
-    left: 39%;
-
-}*/
-
 
 .emailForm{
     margin:auto;
     width: 50%;
-    right: 40%;
+    
     background: rgb(255, 255, 255,0.3);
     position: relative;
 }

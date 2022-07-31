@@ -30,7 +30,12 @@ export default function LoginForm() {
         else{
             localStorage.setItem("user",username);
             localStorage.setItem("password",password)
+            if(username==='admin'){
+                navigate("/manager")
+            }
+            else{
             navigate("/client")
+            }
         }
     }
     const handleClickRegisterLink=()=>

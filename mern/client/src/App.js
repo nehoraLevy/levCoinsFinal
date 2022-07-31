@@ -13,6 +13,8 @@ import WrapLoan from "./views/money transfer/WarpLoan.js";
 import CurrentAccount from './views/CurrentAccount.js';
 import UpdateDetails from './views/updatePersonalDetails.js';
 import Chat from './views/chat.js';
+import ManageEmails from './views/ManagerEmail.js';
+import ManagerAppBar from './views/ManagerToolBar.js';
 function App() {
   return (
     
@@ -31,6 +33,11 @@ function App() {
           <Route  path="/client/Update%20Details" element={<ClientAppBar/>}/>
           <Route  path="/client/Chat" element={<ClientAppBar/>}/>
           <Route  path="/client/New%20Loan" element={<ClientAppBar/>}/>
+
+          <Route  path="/manager" element={<ManagerAppBar/>}/>
+          <Route  path="/manager/Email" element={<ManagerAppBar/>}/>
+          <Route  path="/client/Clients" element={<ManagerAppBar/>}/>
+          <Route  path="/client/Update%20Details" element={<ManagerAppBar/>}/>
       </Routes>
       <Routes>
           <Route path="/" element={<Slider/>}/>
@@ -46,7 +53,9 @@ function App() {
           <Route  path="/client/New%20Loan" element={<WrapLoan/>}/>
           <Route  path="/client/Chat" element={<CurrentAccount/>}/>
 
-
+          <Route  path="/manager" element={<ManageEmails/>}/>
+          <Route  path="/manager/Email" element={<ManageEmails/>}/>
+          <Route  path="/manager/Update%20Details" element={<UpdateDetails/>}/>
         </Routes>
         <Routes>
           <Route  path="/client/Chat" element={<Chat/>}/>

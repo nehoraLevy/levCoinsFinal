@@ -45,7 +45,6 @@ const Slider = () => {
             key={index}
           >
             <br/>
-            <br/>
             {index === currentSlide && (
               <div>
                 <img src={slide.image}  alt="slide" className="image" />
