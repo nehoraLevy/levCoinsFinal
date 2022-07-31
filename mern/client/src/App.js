@@ -36,8 +36,8 @@ function App() {
 
           <Route  path="/manager" element={<ManagerAppBar/>}/>
           <Route  path="/manager/Email" element={<ManagerAppBar/>}/>
-          <Route  path="/client/Clients" element={<ManagerAppBar/>}/>
-          <Route  path="/client/Update%20Details" element={<ManagerAppBar/>}/>
+          <Route  path="/manager/Clients" element={<ManagerAppBar/>}/>
+          <Route  path="/manager/Update%20Details" element={<ManagerAppBar/>}/>
       </Routes>
       <Routes>
           <Route path="/" element={<Slider/>}/>
