@@ -36,7 +36,6 @@ const Slider = () => {
 
   return (
     <div className="slider">
-      <div></div>
       <AiOutlineArrowLeft className="arrow prev" onClick={prevSlide} />
       <AiOutlineArrowRight className="arrow next" onClick={nextSlide} />
       {sliderData.map((slide, index) => {
@@ -45,6 +44,8 @@ const Slider = () => {
             className={index === currentSlide ? "slide current" : "slide"}
             key={index}
           >
+            <br/>
+            <br/>
             {index === currentSlide && (
               <div>
                 <img src={slide.image}  alt="slide" className="image" />
