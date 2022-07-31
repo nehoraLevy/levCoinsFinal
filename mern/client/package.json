@@ -27,6 +27,7 @@
     "react-select-search": "^3.0.10",
     "react-simple-chatbot": "^0.6.1",
     "react-slideshow-image": "^4.0.2",
+    "socket.io-client": "^4.5.1",
     "styled-components": "^4.4.1",
     "web-vitals": "^2.1.4"
   },

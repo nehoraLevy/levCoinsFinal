@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser=require("body-parser");
 
-
 const app = express();
 const cors = require("cors");
 require("dotenv").config({ path: "./config.env" });
@@ -22,10 +21,11 @@ app.use(bodyParser.json(), urlencodedParser);
 // get driver connection
 const dbo = require("./db/connect");
 var http = require('http').createServer(app);
- 
+
+
 const io = require("socket.io")(5001, {
   cors: {
-      origin: "http://localhost:3000",
+    origin: "http://localhost:3000",
   },
   });io.on('connection', (socket) => {
   socket.on('message', (message) =>     {
@@ -33,6 +33,9 @@ const io = require("socket.io")(5001, {
       io.emit('message', `${socket.id.substr(0,2)} said ${message}` );   
   });
 });
+
+
+
 http.listen(port, async function()
  {
   dbo.connectToServer(function (err) {

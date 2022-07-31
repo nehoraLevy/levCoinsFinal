@@ -13,7 +13,9 @@ import Converters from './converters';
 import "./CurrentAccount.css";
 import {useNavigate} from "react-router-dom";
 import axios from 'axios'
+import io from "socket.io-client";
 
+let name=localStorage.getItem("user");
 
 
 function createData(actionId,type,side,accountID, amount,actionDate) {
@@ -91,15 +93,29 @@ rows.data = [
   createData(123334,'transfer','-', 327000020, 1000540, '12/05/2022'),
   createData(123334,'transfer','-', 327002001, 1000540, '12/05/2022'),
 ];
+
 export default function CurrentAccount(){
   const navigate = useNavigate();
   const [details,setDetails]=useState({});
   const [isFetch, setIsFetch]=useState(false);
 
-  
+  const [socket, setSocket] = useState(null);
+
+
+  useEffect(() => {
+    setSocket(io("http://localhost:5001"));
+  }, []);
+
+  useEffect(() => {
+    socket?.emit("newUser", localStorage.getItem("user"));
+  }, [socket]);
+
+  const func1=()=>{socket?.emit("sendNotification", {
+    senderName: name,
+    receiverName:'admin',
+  });}
   useEffect(()=>{
     const getData = async () => {
-      let name=localStorage.getItem("user");
       axios.get('http://localhost:5000/user/'+name)     
       .then(response => {
           setDetails(response.data);
@@ -127,7 +143,7 @@ export default function CurrentAccount(){
         <h1>Hello {localStorage.getItem("user")}</h1>
         <h4>account id: {isFetch ? Number(details.userNumber) : " "}</h4>
         <h4>ballance:<Converters value={isFetch ? Number(details.AmountInDollars): 0} type="usd"></Converters></h4>
-        <div className='icon' onClick={()=>{OpenChat()}}/>
+        <div className='icon' onClick={()=>{func1()}}/>
       </div>
         <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
