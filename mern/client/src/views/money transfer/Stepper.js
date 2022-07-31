@@ -14,6 +14,19 @@ import "./Stepper.css";
 import io from "socket.io-client";
 import { useEffect, useState } from "react";
 
+function chequeDetails(amount,type){
+  if(type=="Transfer")
+  {
+    //----??------------------------------------
+  }
+  else if(type=="Loan")//אפשר להלוות וללוות
+  {
+    if(2*amount>localStorage.AmountInLevCoins)
+    {
+      //set invalid message---------------------------------
+    }
+  }
+}
 
 function getStepContent(step, formContent) {
 
@@ -57,6 +70,7 @@ export const FormStepper = (props) => {
         break;
       case 1:
         setCompiledForm({ ...compiledForm, two: form });
+        chequeDetails(form.amount,header);
         canContinue = true;
         break;
       case 2:

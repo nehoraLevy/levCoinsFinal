@@ -129,8 +129,11 @@ export default function CurrentAccount(){
     getData();
   }, []);
 
-
-
+  localStorage.setItem('AmountInDollars',details.AmountInDollars)
+  localStorage.setItem('AmountInLevCoins',details.AmountInLevCoins)
+  if(localStorage.AmountInDollars==0){
+    ///socket to manager ----------------------------------------------------------------
+  }
   function OpenChat()
   {
     document.getElementById("header").classList.add("blure")
@@ -142,8 +145,8 @@ export default function CurrentAccount(){
       <div >
         <h1>Hello {localStorage.getItem("user")}</h1>
         <h4>account id: {isFetch ? Number(details.userNumber) : " "}</h4>
-        <h4>ballance:<Converters value={isFetch ? Number(details.AmountInDollars): 0} type="usd"></Converters></h4>
-        <div className='icon' onClick={()=>{func1()}}/>
+        <h4>ballance:<Converters value={isFetch ? Number(details.AmountInDollars): 0} type="usd" levCoin={details.AmountInLevCoins}></Converters></h4>
+        <div className='icon' onClick={()=>{OpenChat()}}/>
       </div>
         <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
