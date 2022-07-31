@@ -11,9 +11,12 @@ import DoneIcon from '@mui/icons-material/Done';
 import Typography from "@mui/material/Typography";
 import { FormOne, FormTwo, FormThree, FormFirst } from "./Forms";
 import "./Stepper.css";
+import io from "socket.io-client";
+import { useEffect, useState } from "react";
 
 
 function getStepContent(step, formContent) {
+
   switch (step) {
     case 0:
       return <FormFirst {...{ formContent }} />; 
@@ -37,9 +40,16 @@ export const FormStepper = (props) => {
   let header=props.header;
   const form = watch();
 
+  const socket = io('http://localhost:5001');
+  socket.on('connect', () => {
+    console.log("klllll")
+  });
+  socket.on('message', text => {
+    console.log("klllll")
+  });
+
   const handleNext = () => {
     let canContinue = true;
-    console.log(activeStep);
     switch (activeStep) {
       case 0:
         setCompiledForm({ ...compiledForm, one: form });
