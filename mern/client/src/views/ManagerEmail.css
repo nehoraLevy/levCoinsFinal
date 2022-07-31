@@ -4,7 +4,7 @@
     background-color: rgba(228, 228, 228, 0.2);
 }
 .image{
-    height: 100%;
+    height: 120%;
     width: 100%;
     position: absolute;
     left: 20%;
@@ -18,7 +18,6 @@
     background: rgb(255, 255, 255,0.3);
     position: relative;
 }
-
 
 .button-8 {
   background-color: #e1ecf4;
