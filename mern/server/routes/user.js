@@ -28,19 +28,7 @@ Routes.route("/user").get(function (req, res) {
      res.json(result);
    });
 });
-/*
-// This section will help you get a single record by id
-Routes.route("/user/:id").get(function (req, res) {
- let db_connect = dbo.getDb();
- let myquery = { _id: ObjectId( req.params.id )};
- db_connect
-     .collection("users")
-     .findOne(myquery, function (err, result) {
-       if (err) throw err;
-       res.json(result);
-     });
-});
-*/
+
 // This section will help you get a single user by name
 Routes.route("/user/:name").get(function (req, res) {
   let db_connect = dbo.getDb();
@@ -52,6 +40,17 @@ Routes.route("/user/:name").get(function (req, res) {
         res.json(result);
       });
  });
+ /*
+ Routes.route("/user/getStatus/:status").get(function (req, res) {
+  let db_connect = dbo.getDb();
+  let myquery = { status: String( req.params.status )};
+  db_connect
+      .collection("users")
+      .find(myquery, function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+ });*/
  
 // This section will help you create a new user
 Routes.route("/user/add").post(async function (req, response) {
@@ -74,6 +73,7 @@ Routes.route("/user/add").post(async function (req, response) {
       mobile: req.body.mobile,
       AmountInDollars:req.body.InitialAmount,
       status:"wait to confirm",
+      date: Date(Date.now()).toString(),
       AmountInLevCoins:req.body.InitialAmount*(1-(counterUsers)/100.0),
     };
     
