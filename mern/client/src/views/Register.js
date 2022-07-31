@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import { useForm } from 'react-hook-form';
 import Modal from '@mui/material/Modal'
 import './Register.css';
-import {useNavigate} from "react-router-dom"; 
+import {useNavigate} from "react-router-dom";
+import axios from 'axios' 
 
 
 let message="";
@@ -12,6 +13,8 @@ export default function RegisterForm(props) {
     const handleClose = () => setOpen(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const navigate = useNavigate();
+
+
 
     
     async function onSubmit(data) {
@@ -37,6 +40,20 @@ export default function RegisterForm(props) {
             return;
           });
         console.log(response.json());
+
+        const emailResponse= await fetch("http://localhost:5000/email", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({username, password, email, mobile, InitialAmount}),
+          })
+          .then((res)=>
+          console.log(res.json()))
+          .catch(error => {
+            window.alert(error);
+            return;
+          });
 
     }
     const handleSignIn=()=>{
