@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ChatBot from "react-simple-chatbot";
 import { ThemeProvider } from "styled-components";
 import botAvatar from "./img/logo.png";
 import userAvatar from "./img/user.png";
-import "./chat.css"
+import "./chat.css";
+import axios from 'axios'
+
 const theme = {
   background: "#f5f8fb",
   fontFamily: "Helvetica",
@@ -16,9 +18,28 @@ const theme = {
   userFontColor: "#000"
 };
 
-const balance= 20;
+export default function Chat() {
 
-function Chat() {
+  const [details,setDetails]=useState({});
+  const [isFetch, setIsFetch]=useState(false);
+
+  
+  useEffect(()=>{
+    const getData = async () => {
+      let name=localStorage.getItem("user");
+      axios.get('http://localhost:5000/user/'+name)     
+      .then(response => {
+          setDetails(response.data);
+          setIsFetch(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      
+    }
+    getData();
+  }, []);
+  
 
   return (
     <div className="bot">
@@ -30,7 +51,7 @@ function Chat() {
           steps={[
             {
               id: "1",
-              message:"What You need help?",
+              message:`${localStorage.getItem("user")}, What You need help?`,
               trigger: "2",
             },
             {
@@ -60,12 +81,12 @@ function Chat() {
             },
             {
                 id:"6",
-                message:`Your Balance is ${balance} LevCoins`,
+                message:`Your Balance is ${isFetch ? details.AmountInLevCoins: 0} LevCoins`,
                 end: true,
             },
             {
                 id:"7",
-                message:`Your Balance is ${balance} $`,
+                message:`Your Balance is ${isFetch? details.AmountInDollars: 0} $`,
                 end: true,
             },
             {
@@ -86,4 +107,3 @@ function Chat() {
       </div>
   );
 }
-export default Chat;

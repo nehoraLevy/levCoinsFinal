@@ -10,7 +10,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { getUserByName } from './getUsers';
 import {Link} from "react-router-dom"; 
 import "./ResposiveAppBar.css";
 const pages = ['Current','Loans','New Transfer','New Loan', 'Update Details'];
@@ -23,9 +22,6 @@ const ClientAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  console.log(getUserByName(localStorage.getItem("user")))
-  let rows={}
-  rows.name="batya lasry"
   return (
     <AppBar position="static">
       <Container maxWidth="xl">

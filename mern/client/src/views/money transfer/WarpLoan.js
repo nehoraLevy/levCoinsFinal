@@ -13,15 +13,40 @@ export default function WrapLoan()
     const handleClose = () => setOpen(false);
 
     async function handleFinish(data){
-      console.log("23:", data);
+      let sender=localStorage.getItem("user");
+      let reciever=data.two.selectUser;
+      let amount=data.two.amount;
+      let verify;
+      if(data.three.password===localStorage.getItem("password"))
+      {
+        verify=true;
+      }
+      else{
+        verify=false;
+      }
+      if(verify)
+      {
+        const response= await fetch("http://localhost:5000/loans/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({sender, reciever, amount}),
+        })
+        .catch(error => {
+          window.alert(error);
+          return;
+        });
+      }
+      
     }
   
     useEffect(() => {
       console.log("FORM CONTEXT", watch(), errors);
     }, [watch, errors]);
 
-    const stepDescription=["Fill Your Loan Details", "We want to verfiy you", "You Finished in success!"]
-    const steps= ["Loans Details", "Verfiy", "Finish"];
+    const stepDescription=["Let's Go","Fill Your Loan Details", "We want to verfiy you", "You Finished in success!"]
+    const steps= ["Let's Go","Loan Details", "Verfiy", "Finish"];
     const header="Loan";
     return(
       <div>

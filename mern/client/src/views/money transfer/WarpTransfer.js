@@ -17,11 +17,10 @@ export default function WarpTransfer()
 
     async function handleFinish(data){
       let sender=localStorage.getItem("user");
-      let reciever=data.one.selectUser;
-      let amount=data.one.amount;
-      let reason=data.one.transferReason;
+      let reciever=data.two.selectUser;
+      let amount=data.two.amount;
       let verify;
-      if(data.two.password===localStorage.getItem("password"))
+      if(data.three.password===localStorage.getItem("password"))
       {
         verify=true;
       }
@@ -43,12 +42,11 @@ export default function WarpTransfer()
           return;
         });
       }
-
     }
 
 
-    const stepDescription=["Fill Your Transfer Details", "We want to verfiy you", "You Finished in success!"]
-    const steps= ["Transfer Details", "Verfiy", "Finish"];
+    const stepDescription=["Let's Go","Fill Your Transfer Details", "We want to verfiy you", "You Finished in success!"]
+    const steps= ["Let's Go","Transfer Details", "Verfiy", "Finish"];
     const header="Transfer";
     return(
       <div>

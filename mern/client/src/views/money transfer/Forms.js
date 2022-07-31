@@ -4,6 +4,25 @@ import SelectSearch from "react-select-search";
 import "./Forms.css"
 
 
+export const FormFirst = ({ formContent }) => {
+  const methods = useFormContext();
+  const { reset, register } = methods;
+
+  useEffect(() => {
+    reset({ ...formContent.one }, { errors: true });
+  }, []);
+
+  return (
+    <form className="form">
+      <input
+        name="transferReason"
+        placeholder="write your reason..."
+        {...register('transferReason', { required: true })}
+      />
+    </form>
+  );
+};
+
 export const FormOne = ({ formContent }) => {
   const methods = useFormContext();
   const { reset, register } = methods;
@@ -15,7 +34,7 @@ export const FormOne = ({ formContent }) => {
   let selectedName="";
 
   useEffect(() => {
-    reset({ ...formContent.one }, { errors: true });
+    reset({ ...formContent.two }, { errors: true });
   }, []);
 
   return (
@@ -24,19 +43,14 @@ export const FormOne = ({ formContent }) => {
         name="selectUser"
         placeholder="to who to transfer?..."
         {...register('selectUser', { required: true })}
-      />
+       />
       <input
         type="number"
         name="amount"
         placeholder="amount"
         {...register('amount', { required: true })}
       />
-      <input
-        name="transferReason"
-        placeholder="write your reason..."
-        {...register('transferReason', { required: true })}
-      />
-    </form>
+    </form> 
   );
 };
 
@@ -45,19 +59,20 @@ export const FormTwo = ({ formContent }) => {
   const { reset, register } = methods;
 
   useEffect(() => {
-    reset({ ...formContent.two }, { errors: true });
+    reset({ ...formContent.three }, { errors: true });
   }, []);
   
 
   return (
-      <form className="form" >
-        <input
-          name="confirmPassword"
-          type="password"
-          placeholder="write your password..."
-          {...register('password', { required: true })}
-        />
-      </form>
+    <form className="form" >
+    <input
+      name="confirmPassword"
+      type="password"
+      placeholder="write your password..."
+      {...register('password', { required: true })}
+    />
+  </form>
+
   );
 };
 
@@ -66,7 +81,7 @@ export const FormThree = ({ formContent }) => {
   const { reset, register } = methods;
 
   useEffect(() => {
-    reset({ ...formContent.three }, { errors: true });
+    reset({ ...formContent.four }, { errors: true });
   }, []);
 
   return (
