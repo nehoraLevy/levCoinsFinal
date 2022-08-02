@@ -36,7 +36,7 @@ export default function WarpTransfer()
     }
 
     async function updateAmounts({senderName, recieverName, amount})
-    {
+    { //need to do promise all or like this
       const sender=await getUserByName(senderName);
       const reciever= await getUserByName(recieverName);
       sender.AmountInLevCoins-=amount;

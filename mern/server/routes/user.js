@@ -121,14 +121,15 @@ Routes.route("/update/:name").post(function (req, response) {
  let db_connect = dbo.getDb(); 
  let myquery = { name: req.params.name }; 
  let newvalues = {   
-   $set: {     
+   $set: {
+    userNumber:req.body.userNumber,    
     name: req.body.name,
     password: req.body.password,
     email: req.body.email,
     mobile: req.body.mobile,
-    InitialAmount: req.body.InitialAmount,
     AmountInDollars:req.body.AmountInDollars,
     status:req.body.status,
+    date:req.body.date,
     AmountInLevCoins:req.body.AmountInLevCoins, 
    }, 
   }

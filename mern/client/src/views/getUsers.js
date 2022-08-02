@@ -32,5 +32,5 @@ export async function updateUser(userUpdate){
       headers: {
           'Content-Type': 'application/json'
       },
-      });
+  });
 }
