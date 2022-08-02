@@ -98,10 +98,12 @@ Routes.route("/user/login").post(function (req, res) {
           {expiresIn:86400},
           (err, token)=>{
             if(err) return res.json({message:err});
-            return res.status(200).json({
-              message: "Success",
-              token:"Bearer"+token
-            })
+            //if(dbUser.status=="accepted") {
+              return res.status(200).json({
+                message: "Success",
+                token:"Bearer"+token
+              })
+            //}
           }
         )
       }
@@ -125,7 +127,7 @@ Routes.route("/update/:name").post(function (req, response) {
     email: req.body.email,
     mobile: req.body.mobile,
     InitialAmount: req.body.InitialAmount,
-    AmountInDollars:req.body.InitialAmount,
+    AmountInDollars:req.body.AmountInDollars,
     status:req.body.status,
     AmountInLevCoins:req.body.AmountInLevCoins, 
    }, 

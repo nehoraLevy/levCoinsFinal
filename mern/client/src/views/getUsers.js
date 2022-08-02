@@ -1,19 +1,4 @@
-/*export async function getUsersByName(name) {
-    let users;
-    fetch(`http://localhost:5000/user/:${name}`, {       
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },}
-    .then(response => {
-        users=response.json();
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-    )
-    return users;
-}*/
+
 import axios from 'axios'
 export async function getUsers() {
   let users;
@@ -37,4 +22,15 @@ export async function getUserByName(name) {
   .catch((error) => {
     console.log(error);
   })
+}
+
+export async function updateUser(userUpdate){
+  const name=userUpdate.name;
+  await fetch(`http://localhost:5000/update/${name}`, {
+      method: "POST",
+      body: JSON.stringify(userUpdate),
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      });
 }

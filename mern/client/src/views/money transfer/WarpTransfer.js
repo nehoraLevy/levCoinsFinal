@@ -5,6 +5,8 @@ import { useForm, FormProvider } from "react-hook-form";
 import Modal from '@mui/material/Modal';
 import Button from "@mui/material/Button";
 
+import { getUserByName, updateUser } from "../getUsers";
+
 import "./Wrap.css";
 
 export default function WarpTransfer()
@@ -15,12 +17,45 @@ export default function WarpTransfer()
       console.log("FORM CONTEXT", watch(), errors);
     }, [watch, errors]);
 
+
+    async function addTransfer({senderName, recieverName, amount})
+    {
+
+        const response= await fetch("http://localhost:5000/transaction/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({senderName, recieverName, amount}),
+        })
+        .catch(error => {
+          window.alert(error);
+          return;
+        });
+
+    }
+
+    async function updateAmounts({senderName, recieverName, amount})
+    {
+      const sender=await getUserByName(senderName);
+      const reciever= await getUserByName(recieverName);
+      sender.AmountInLevCoins-=amount;
+      sender.AmountInDollars=sender.AmountInLevCoins*(1-(sender.userNumber-1)/100.0);
+      reciever.AmountInLevCoins+=amount;
+      reciever.AmountInDollars=reciever.AmountInLevCoins*(1-(reciever.userNumber-1)/100.0);
+      updateUser(sender);
+      updateUser(reciever);
+    }
+
+
     async function handleFinish(data){
-      let sender=localStorage.getItem("user");
-      let reciever=data.two.selectUser;
+      let senderName=localStorage.getItem("user");
+      let recieverName=data.two.selectUser;
       let amount=data.two.amount;
+      let password=data.three.password;
+
       let verify;
-      if(data.three.password===localStorage.getItem("password"))
+      if(password===localStorage.getItem("password"))
       {
         verify=true;
       }
@@ -29,19 +64,9 @@ export default function WarpTransfer()
       }
       if(verify)
       {
-        console.log(33);
-        const response= await fetch("http://localhost:5000/transaction/add", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({sender, reciever, amount}),
-        })
-        .catch(error => {
-          window.alert(error);
-          return;
-        });
-      }
+        addTransfer({senderName,recieverName,amount});
+        updateAmounts({senderName,recieverName,amount});
+      }   
     }
 
 
