@@ -17,35 +17,49 @@ import {useEffect, useState} from "react";
 import axios from 'axios';
 import "./ManagerEmail.css";
 
-function createData(id,name,accountID, initialAmount,status,requestDate) {
-    return {
-        id,
-        name,
-        status,
-        accountID,
-        initialAmount,
-        requestDate,
-    };
-  }
 
-function addClient(prop){
-    //addClient to mongodb
-    console.log(prop.id)
-    document.getElementById(prop.id).remove()
-} 
 
-function notAddClient(prop){
-    document.getElementById(prop.id).remove()
-    alert("the clients refused succefully");
-
-}
 
 function ManagerEmail(props) {
     const detail=props.detail;
     const [open, setOpen] = React.useState(false);
+
+    async function deleteUser(userDeleteName) {
+        await fetch(`http://localhost:5000/${userDeleteName}`, {
+            method:"DELETE",
+        })
+        .then()
+        .catch((error) => {
+            console.log(error);
+            });
+    }
+    
+    async function updateUser(userUpdate){
+        const name=userUpdate.name;
+        await fetch(`http://localhost:5000/update/${name}`, {
+            method: "POST",
+            body: JSON.stringify(userUpdate),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            });
+    }
+    async function addClient(){
+        document.getElementById(props.id).remove();
+        props.detail.status="accepted";
+        updateUser(props.detail);
+    }
+
+    async function notAddClient(){
+        document.getElementById(props.id).remove();
+        deleteUser(props.detail.name);
+    }
+
+
+
   return (<div>
-    <List  sx={{ width: '2000%', maxWidth: 360,height:'100%' }}>
-        <ListItem  alignItems="center" id={props.id}>
+    <List  sx={{ width: '2000%', maxWidth: 360,height:'100%' }} id={props.id}>
+        <ListItem  alignItems="center" >
             <ListItemAvatar >
                 <Avatar alt={detail.name.toUpperCase()} src="/static/images/avatar/2.jpg" />
             </ListItemAvatar>
@@ -69,13 +83,13 @@ function ManagerEmail(props) {
                                 <TableCell ><strong>account ID: </strong>{detail.userNumber}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell ><strong>initialAmount: </strong>{detail.AmountInDollars}</TableCell> 
+                                <TableCell ><strong>initial Amount: </strong>{detail.AmountInDollars}</TableCell> 
                                 <TableCell ><strong>initial Amount Lev Coins: </strong>{detail.AmountInLevCoins}</TableCell> 
                                 <TableCell ><strong>request Date: </strong>{detail.date}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell><button className="button-8" onClick={()=>{addClient(detail)}}>accept</button></TableCell>
-                                <TableCell><button className="button-8" onClick={()=>{notAddClient(detail)}}>refuse</button></TableCell>
+                                <TableCell><button className="button-8" onClick={()=>{addClient()}}>accept</button></TableCell>
+                                <TableCell><button className="button-8" onClick={()=>{notAddClient()}}>refuse</button></TableCell>
                             </TableRow>
                     </TableBody>
                     </Table>
@@ -113,8 +127,8 @@ export default function ManageEmails(){
 
         <div className='emailForm'>Lev Coins member request</div>
             <div>
-                {details.map((detail) => (
-                    <ManagerEmail id={detail.userNumber} key={detail.userNumber} detail={detail} />
+                {details.map((detail, index) => (
+                    <ManagerEmail id={index} key={index} detail={detail} />
                 ))}
             </div>
         </div>)
