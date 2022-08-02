@@ -14,15 +14,21 @@ import "./CurrentAccount.css";
 import {useNavigate} from "react-router-dom";
 import axios from 'axios'
 import io from "socket.io-client";
-
+import SelectedSliceTime from "./ListItem"
 let name=localStorage.getItem("user");
 
 
-function createData(actionId,type,side,accountID, amount,actionDate) {
+function createData(type,{amount,reciever,sender,transferId,loanId,date}) {
 
-  return {
-    actionId,type,side, accountID,amount,actionDate
-  };
+  let actionId;
+  if(transferId===undefined){
+    actionId=loanId
+  }
+  else{
+    actionId=transferId
+  }
+  date=date.split(' ').slice(1, 4).join(' ');
+  return {amount,type,reciever,sender,actionId,date};
 }
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,12 +44,13 @@ function Row(props) {
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} >
-        <TableCell align="center">{row.actionId}</TableCell>
-        <TableCell align="center">{row.type}</TableCell>
-        <TableCell align="center">{convertToArrow(row.side)}</TableCell>
-        <TableCell align="center">{row.accountID}</TableCell>
-        <TableCell align="center">{convertAmount(row.amount)}</TableCell>
-        <TableCell align="center">{row.actionDate}</TableCell>
+      <TableCell align="center">{convertAmount(row.amount)}</TableCell>
+      <TableCell align="center">{row.type}</TableCell>
+      <TableCell align="center">{row.reciever}</TableCell>
+      <TableCell align="center">{row.sender}</TableCell>
+
+      <TableCell align="center">{row.actionId}</TableCell>
+      <TableCell align="center">{row.date}</TableCell>
 
       </TableRow>
     </React.Fragment>
@@ -52,47 +59,36 @@ function Row(props) {
 function convertAmount(amount){
   return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-function convertToArrow(type){
-  if(type=='+'){
-    return <span style={{color:"green"}}>&#8593;</span>
-  }
-  return <span style={{color:"red"}}>&#8595;</span>
+let rows=[];
+let current;
+function rangeDays(date){
+  let range=(Date.now()-(new Date(date)))/(1000 * 3600 * 24)
+  console.log(range)
+  return range
 }
-Row.propTypes = {
-    row: PropTypes.shape({
-    actionId: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    side: PropTypes.string.isRequired,
-    accountID: PropTypes.number.isRequired,
-    amount: PropTypes.number.isRequired,
-    actionDate: PropTypes.string.isRequired,
-  }).isRequired,
-};
+function currentBySliceTime(){
+  const element = document.getElementById("times").value;
+  switch(element){
+    case "all":
+      current=rows;
+      document.getElementById("data").contentWindow.location.reload(true);
+      break;
+    case "week":
+      current=rows.filter((element)=>(rangeDays(element.date)<7))
+      document.getElementById("data").contentWindow.location.reload(true);
 
-let rows={};
+      break;
+    case "month":
+      current=rows.filter((element)=>(rangeDays(element.date)<5))
+      console.log(current)
+      document.getElementById("data").contentWindow.location.reload(true);
 
+      break
+    default:
+      console.log("default")
 
-
-rows.data = [
-  createData(123,'lend','+', 327009783, 200,  '12/12/2021'),
-  createData(1234,'transfer','+', 32700001, 100000, '12/07/2022'),
-  createData(123334,'transfer','+', 327002000, 1000540, '12/05/2022'),
-  createData(22,'lend','+', 32700090, 1000540, '12/05/2022'),
-  createData(123334,'transfer','+', 327003010, 1000540, '12/05/2022'),
-  createData(33,'lend','+', 3272000, 1040540, '12/05/2022'),
-  createData(123334,'transfer','+', 327003000, 1000540, '12/05/2022'),
-  createData(44,'transfer','+', 3270000002, 1000540, '12/05/2022'),
-  createData(123334,'transfer','+', 327030000, 1000540, '12/05/2022'),
-  createData(123334,'transfer','+', 3274000000, 1000540, '12/05/2022'),
-  createData(5543,'lend','+', 3270000, 1000540, '12/05/2022'),
-  createData(123334,'transfer','-', 3270400000, 1000540, '12/05/2022'),
-  createData(2233,'transfer','-', 327005000, 1000540, '12/05/2022'),
-  createData(123334,'transfer','-', 3276000000, 1000540, '12/05/2022'),
-  createData(123334,'transfer','-', 327007000, 1000540, '12/05/2022'),
-  createData(123334,'transfer','-', 327009000, 1000540, '12/05/2022'),
-  createData(123334,'transfer','-', 327000020, 1000540, '12/05/2022'),
-  createData(123334,'transfer','-', 327002001, 1000540, '12/05/2022'),
-];
+  }
+ }
 
 export default function CurrentAccount(){
   const navigate = useNavigate();
@@ -127,8 +123,32 @@ export default function CurrentAccount(){
       
     }
     getData();
-  }, []);
+    const getTrans = async () => {
+      axios.get('http://localhost:5000/transaction/')   
+      .then(response => {
+        const res =response.data.filter((user) => (user.reciever===localStorage.getItem("user")||user.sender==localStorage.getItem("user")));
+        res.forEach((trans)=>rows.push(createData("transfer",trans)))
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    }
+    getTrans();
 
+    const getLoans = async () => {
+      axios.get('http://localhost:5000/loans/')   
+      .then(response => {
+        const res =response.data.filter((user) => (user.reciever===localStorage.getItem("user")||user.sender==localStorage.getItem("user")));
+        console.log(response.data)
+        res.forEach((trans)=>rows.push(createData("loans",trans)))
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    }
+    getLoans();
+  }, []);
+  current=rows;
   localStorage.setItem('AmountInDollars',details.AmountInDollars)
   localStorage.setItem('AmountInLevCoins',details.AmountInLevCoins)
   if(localStorage.AmountInDollars==0){
@@ -147,22 +167,27 @@ export default function CurrentAccount(){
         <h4>account id: {isFetch ? Number(details.userNumber) : " "}</h4>
         <h4>ballance:<Converters value={isFetch ? Number(details.AmountInDollars): 0} type="usd" levCoin={details.AmountInLevCoins}></Converters></h4>
         <div className='icon' onClick={()=>{OpenChat()}}/>
-      </div>
+        <select id="times" onChange={()=>{currentBySliceTime()}} >
+          <option value="all">all</option>
+          <option value="week">last week</option>
+          <option value="month">last month</option>
+        </select> 
+       </div>
         <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
             <TableHead>
             <TableRow>
-                <StyledTableCell align="center">ActionId</StyledTableCell>
-                <StyledTableCell align="center">Type</StyledTableCell>
-                <StyledTableCell align="center">Side</StyledTableCell>
-                <StyledTableCell align="center">AccountID</StyledTableCell>
                 <StyledTableCell align="center">Amount</StyledTableCell>
+                <StyledTableCell align="center">Type</StyledTableCell>
+                <StyledTableCell align="center">Reciever</StyledTableCell>
+                <StyledTableCell align="center">Sender</StyledTableCell>
+                <StyledTableCell align="center">actionId</StyledTableCell>
                 <StyledTableCell align="center">Action Date</StyledTableCell>
                 <StyledTableCell align="center"></StyledTableCell>
             </TableRow>
             </TableHead>
-            <TableBody>
-            {rows.data.map((row) => (
+            <TableBody id="data">
+            {current.map((row) => (
                 <Row id={row} key={row.accountID} row={row} />
             ))}
             </TableBody>

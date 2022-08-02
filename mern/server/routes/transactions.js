@@ -44,5 +44,14 @@ Routes.route("/transaction/:reciever").get(function (req, res) {
       });
 });
 
-
+Routes.route("/transaction").get(function (req, res) {
+  let db_connect = dbo.getDb();
+  db_connect
+      .collection("transactions")
+      .find({})
+      .toArray(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+});
 module.exports = Routes;
