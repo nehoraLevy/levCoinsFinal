@@ -5,7 +5,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import Modal from '@mui/material/Modal';
 import Button from "@mui/material/Button";
 
-import { getUserByName, updateUser } from "../getUsers";
+import { updateUser } from "../getUsers";
 import axios from 'axios';
 
 import "./Wrap.css";
@@ -40,20 +40,6 @@ export default function WarpTransfer()
       getData();
     }, []);
 
-    useEffect(()=>{
-      console.log(recieverName);
-      const getData = async () => {
-        axios.get('http://localhost:5000/user/'+recieverName)     
-        .then(response => {
-            setReciever(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        
-      }
-      getData();
-    }, [recieverName]);
 
 
     async function addTransfer({senderName, recieverName, amount})
@@ -73,17 +59,15 @@ export default function WarpTransfer()
 
     }
 
-    async function updateAmounts({senderName, recieverName, amount})
+    async function updateAmounts({amount})
     {
       const sender=details;
-      sender.AmountInLevCoins-=amount;
-      sender.AmountInDollars=sender.AmountInLevCoins*(1-(sender.userNumber-1)/100.0);
+      sender.AmountInLevCoins-=Number(amount);
+      sender.AmountInDollars=Number(sender.AmountInLevCoins*(1-(sender.userNumber-1)/100.0));
       updateUser(sender);
-      if(reciever){
-        reciever.AmountInLevCoins+=amount;
-        reciever.AmountInDollars=reciever.AmountInLevCoins*(1-(reciever.userNumber-1)/100.0);
-        updateUser(reciever);
-      }
+      window.reciever.AmountInLevCoins+=Number(amount);
+      window.reciever.AmountInDollars=Number(window.reciever.AmountInLevCoins*(1-(window.reciever.userNumber-1)/100.0));
+      updateUser(window.reciever);
     }
 
 
@@ -105,7 +89,7 @@ export default function WarpTransfer()
       if(verify)
       {
         addTransfer({senderName,recieverName,amount});
-        updateAmounts({senderName,recieverName,amount});
+        updateAmounts({amount});
       }   
     }
 

@@ -60,10 +60,10 @@ Routes.route("/user/add").post(async function (req, response) {
       password:password,
       email: req.body.email,
       mobile: req.body.mobile,
-      AmountInDollars:req.body.InitialAmount,
+      AmountInDollars:Number(req.body.InitialAmount),
       status:"wait to confirm",
       date: Date(Date.now()).toString(),
-      AmountInLevCoins:req.body.InitialAmount*(1-(counterUsers)/100.0),
+      AmountInLevCoins:Number(req.body.InitialAmount*(1-(counterUsers)/100.0)),
     };
     
     db_connect.collection("users").insertOne(myobj, function (err, res) {
@@ -127,10 +127,10 @@ Routes.route("/update/:name").post(function (req, response) {
     password: req.body.password,
     email: req.body.email,
     mobile: req.body.mobile,
-    AmountInDollars:req.body.AmountInDollars,
+    AmountInDollars:Number(req.body.AmountInDollars),
     status:req.body.status,
     date:req.body.date,
-    AmountInLevCoins:req.body.AmountInLevCoins, 
+    AmountInLevCoins:Number(req.body.AmountInLevCoins), 
    }, 
   }
   db_connect
