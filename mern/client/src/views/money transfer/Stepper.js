@@ -64,7 +64,7 @@ export const FormStepper = (props) => {
       return true;
     }
     else{
-      alert("This user is not exist");ד
+      alert("This user is not exist");
       //document.getElementsByName("selectUser")[0].innerHTML="";
       return false;
     }
