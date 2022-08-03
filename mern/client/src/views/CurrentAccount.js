@@ -191,7 +191,7 @@ export default function CurrentAccount(){
       <div >
         <h1>Hello {localStorage.getItem("user")}</h1>
         <h4>account id: {isFetch ? Number(details.userNumber) : " "}</h4>
-        <h4>ballance:<Converters value={isFetch ? Number(details.AmountInDollars).toFixed(0): 0} type="usd" levCoin={details.AmountInLevCoins}></Converters></h4>
+        <h4>balance:<Converters value={isFetch ? Number(details.AmountInDollars).toFixed(0): 0} type="usd" levCoin={details.AmountInLevCoins}></Converters></h4>
         <div className='icon' onClick={()=>{OpenChat()}}/>
         <select id="times"  onChange={()=>{currentBySliceTime()}} >
           <option value="all">all</option>      

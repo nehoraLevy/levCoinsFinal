@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import SelectSearch from "react-select-search";
 import "./Forms.css"
-import axios from "axios";
+
 
 
 export const FormFirst = ({ formContent }) => {
@@ -34,44 +34,18 @@ export const FormOne = ({ formContent }) => {
 ];
   let selectedName="";
 
-  const [details,setDetails]=useState([]);
-  const [isFetch, setIsFetch]=useState(false);
-  
-  useEffect(()=>{
-    const getData = async () => {
-      axios.get('http://localhost:5000/user/')   
-      .then(response => {
-          setDetails(response.data.filter((user) => (user.name!==localStorage.getItem("user"))));
-          setIsFetch(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-    }
-    getData();
-  }, []);
 
   useEffect(() => {
     reset({ ...formContent.two }, { errors: true });
   }, []);
 
-  function checkReciever(){
-    const value=document.getElementsByName("selectUser")[0].value;
-    console.log(details);
-    if(details.filter((i=>i.name===value))){
-      window.reciever=details.find(i=> i.name==value);
-    }
-    else{
-      alert("This user is not exists");
-    }
-  }
+
 
   return (
     <form className="form" >
         <input
         name="selectUser"
         placeholder="to who to transfer?..."
-        onInput={()=>checkReciever()}
         {...register('selectUser', { required: true })}
        />
       <input
