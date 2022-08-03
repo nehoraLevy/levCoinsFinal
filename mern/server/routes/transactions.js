@@ -12,8 +12,8 @@ Routes.route("/transaction/add").post(async function (req, response) {
         transferId: 200+counterTransactions+1,
         date: Date(Date.now()).toString(),
         amount:req.body.amount,
-        sender:req.body.sender,
-        reciever:req.body.reciever,
+        sender:req.body.senderName,
+        reciever:req.body.recieverName,
     };
     
     db_connect.collection("transactions").insertOne(myobj, function (err, res) {

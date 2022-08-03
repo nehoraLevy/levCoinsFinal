@@ -1,5 +1,8 @@
+
 const express = require("express");
 const bodyParser=require("body-parser");
+
+
 
 const app = express();
 const cors = require("cors");
@@ -14,6 +17,8 @@ app.use(require("./routes/user"));
 app.use(require("./routes/transactions"));
 
 app.use(require("./routes/Loans"));
+
+app.use(require("./sendEmail/sendEmail"));
 
 const urlencodedParser=bodyParser.urlencoded({extends:false});
 app.use(bodyParser.json(), urlencodedParser);
@@ -43,6 +48,8 @@ http.listen(port, async function()
  
   });
   console.log(`Server is running on port: ${port}`);
+
+
 
 });
 

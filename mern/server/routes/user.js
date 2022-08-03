@@ -18,7 +18,7 @@ const ObjectId = require("mongodb").ObjectId;
 
  
  
-// This section will help you get a list of all the records.
+// This section will help you get a list of all the users
 Routes.route("/user").get(function (req, res) {
  let db_connect = dbo.getDb("Users");
   db_connect.collection("users")
@@ -40,17 +40,6 @@ Routes.route("/user/:name").get(function (req, res) {
         res.json(result);
       });
  });
- /*
- Routes.route("/user/getStatus/:status").get(function (req, res) {
-  let db_connect = dbo.getDb();
-  let myquery = { status: String( req.params.status )};
-  db_connect
-      .collection("users")
-      .find(myquery, function (err, result) {
-        if (err) throw err;
-        res.json(result);
-      });
- });*/
  
 // This section will help you create a new user
 Routes.route("/user/add").post(async function (req, response) {
@@ -71,10 +60,10 @@ Routes.route("/user/add").post(async function (req, response) {
       password:password,
       email: req.body.email,
       mobile: req.body.mobile,
-      AmountInDollars:req.body.InitialAmount,
+      AmountInDollars:Number(req.body.InitialAmount),
       status:"wait to confirm",
       date: Date(Date.now()).toString(),
-      AmountInLevCoins:req.body.InitialAmount*(1-(counterUsers)/100.0),
+      AmountInLevCoins:Number(req.body.InitialAmount*(1-(counterUsers)/100.0)),
     };
     
     db_connect.collection("users").insertOne(myobj, function (err, res) {
@@ -109,10 +98,12 @@ Routes.route("/user/login").post(function (req, res) {
           {expiresIn:86400},
           (err, token)=>{
             if(err) return res.json({message:err});
-            return res.status(200).json({
-              message: "Success",
-              token:"Bearer"+token
-            })
+            //if(dbUser.status=="accepted") {
+              return res.status(200).json({
+                message: "Success",
+                token:"Bearer"+token
+              })
+            //}
           }
         )
       }
@@ -125,28 +116,36 @@ Routes.route("/user/login").post(function (req, res) {
 
 
  
-// This section will help you update a record by id.
-Routes.route("/update/:id").post(function (req, response) {
+// update by name
+Routes.route("/update/:name").post(function (req, response) {
  let db_connect = dbo.getDb(); 
- let myquery = { _id: ObjectId( req.params.id )}; 
+ let myquery = { name: req.params.name }; 
  let newvalues = {   
-   $set: {     
-    name: req.body.username,
+   $set: {
+    userNumber:req.body.userNumber,    
+    name: req.body.name,
     password: req.body.password,
     email: req.body.email,
     mobile: req.body.mobile,
-    InitialAmount: req.body.InitialAmount,
-    AmountInDollars:req.body.InitialAmount,
+    AmountInDollars:Number(req.body.AmountInDollars),
     status:req.body.status,
-    AmountInLevCoins:req.body.AmountInLevCoins, 
+    date:req.body.date,
+    AmountInLevCoins:Number(req.body.AmountInLevCoins), 
    }, 
   }
+  db_connect
+  .collection("users")
+  .updateOne(myquery, newvalues, function (err, res) {
+    if (err) throw err;
+    console.log("1 document updated");
+    response.json(res);
+  });
 });
  
 // This section will help you delete a record
-Routes.route("/:id").delete((req, response) => {
+Routes.route("/:name").delete((req, response) => {
  let db_connect = dbo.getDb();
- let myquery = { _id: ObjectId( req.params.id )};
+ let myquery = { name: req.params.name };
  db_connect.collection("users").deleteOne(myquery, function (err, obj) {
    if (err) throw err;
    console.log("1 user deleted");
