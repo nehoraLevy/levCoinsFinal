@@ -15,6 +15,7 @@ import UpdateDetails from './views/updatePersonalDetails.js';
 import Chat from './views/chat.js';
 import ManageEmails from './views/ManagerEmail.js';
 import ManagerAppBar from './views/ManagerToolBar.js';
+
 function App() {
   return (
     

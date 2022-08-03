@@ -4,6 +4,7 @@ import SelectSearch from "react-select-search";
 import "./Forms.css"
 
 
+
 export const FormFirst = ({ formContent }) => {
   const methods = useFormContext();
   const { reset, register } = methods;
@@ -33,9 +34,12 @@ export const FormOne = ({ formContent }) => {
 ];
   let selectedName="";
 
+
   useEffect(() => {
     reset({ ...formContent.two }, { errors: true });
   }, []);
+
+
 
   return (
     <form className="form" >
@@ -47,7 +51,7 @@ export const FormOne = ({ formContent }) => {
       <input
         type="number"
         name="amount"
-        placeholder="amount"
+        placeholder="amount in Lev Coins"
         {...register('amount', { required: true })}
       />
     </form> 

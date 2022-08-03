@@ -1,20 +1,32 @@
 const express = require("express");
 
+const blockchain=require("../blockchain/blockchain");
+
 const Routes = express.Router();
 
 const dbo = require("../db/connect");
 
 
 Routes.route("/transaction/add").post(async function (req, response) {
+
     let db_connect = dbo.getDb();
     const counterTransactions= await db_connect.collection("transactions").countDocuments();
     let myobj = {
         transferId: 200+counterTransactions+1,
         date: Date(Date.now()).toString(),
         amount:req.body.amount,
-        sender:req.body.sender,
-        reciever:req.body.reciever,
+        sender:req.body.senderName,
+        reciever:req.body.recieverName,
     };
+    
+    //add to blockchain
+    blockchain.createNewBlock({
+      id: 200+counterTransactions+1,
+      date: Date(Date.now()).toString(),
+      amount:req.body.amount,
+      sender:req.body.senderName,
+      reciever:req.body.recieverName,
+    });
     
     db_connect.collection("transactions").insertOne(myobj, function (err, res) {
       if (err) throw err;
