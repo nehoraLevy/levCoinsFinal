@@ -13,17 +13,20 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { styled } from '@mui/material/styles';
+import axios from 'axios'
+import{useEffect, useState } from "react";
 
-function createData(side,accountID, amount,interest,returnPeriod,status,reason,loanDate) {
+function createData(loan) {
+  let {loanId,amount,sender,reciever,date} = loan
+  date=date.split(' ').slice(1, 4).join(' ');
   return {
-    side,accountID, amount,status,
+    loanId,amount,sender,reciever,date,
     details: [
       {
-        status:status,
-        interest: interest,
-        loanDate:loanDate,
-        returnPeriod: returnPeriod,
-        reason:reason
+        interest: 0.001,
+        loanDate:date,
+        returnPeriod: Math.floor(Math.random() * 11+1).toString()+" month",
+        reason:"no reason"
       },
 
     ],
@@ -44,10 +47,11 @@ function Row(props) {
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} >
-        <TableCell align="center">{row.side}</TableCell>
-        <TableCell align="center">{row.accountID}</TableCell>
+        <TableCell align="center">{row.loanId}</TableCell>
         <TableCell align="center">{row.amount}</TableCell>
-        <TableCell align="center">{row.status}</TableCell>
+        <TableCell align="center">{row.sender}</TableCell>
+        <TableCell align="center">{row.reciever}</TableCell>
+        <TableCell align="center">{row.date}</TableCell>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -65,7 +69,6 @@ function Row(props) {
               <Table sx={{ minWidth: 700 }} aria-label="customized table">
                 <TableHead>
                   <TableRow>
-                    <TableCell align="center"><strong>status</strong></TableCell>
                     <TableCell align="center"><strong>interest</strong></TableCell>
                     <TableCell align="center"><strong>loanDate</strong></TableCell>
                     <TableCell align="center"><strong>returnPeriod</strong></TableCell>
@@ -75,7 +78,6 @@ function Row(props) {
                 <TableBody>
                   {row.details.map((historyRow) => (
                     <TableRow key={historyRow}>
-                      <TableCell align="center">{historyRow.status}</TableCell>
                       <TableCell align="center">{historyRow.interest}</TableCell>
                       <TableCell align="center">{historyRow.loanDate}</TableCell>
                       <TableCell align="center">{historyRow.returnPeriod}</TableCell>
@@ -93,14 +95,13 @@ function Row(props) {
 }
 Row.propTypes = {
   row: PropTypes.shape({
-    side: PropTypes.string.isRequired,
-    accountID: PropTypes.number.isRequired,
+    loanId: PropTypes.number.isRequired,
     amount: PropTypes.number.isRequired,
-    status: PropTypes.string.isRequired,
-
+    sender: PropTypes.string.isRequired,
+    reciever: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
     details: PropTypes.arrayOf(
       PropTypes.shape({
-        status: PropTypes.string.isRequired,
         reason: PropTypes.string.isRequired,
         interest: PropTypes.number.isRequired,
         returnPeriod: PropTypes.string.isRequired,
@@ -110,12 +111,27 @@ Row.propTypes = {
     ).isRequired,
   }).isRequired,
 };
-const rows = [
-  createData('lend', 327009783, 200, 0.01, '5 month','allowed','none', '12/12/2021'),
-  createData('lended', 327000000, 100000, 0.005,'1 year','refused','to many lended requested','12/07/2022'),
-];
+let rows = [];
 export default function Loans() {
+  useEffect(()=>{
+  const getLoans = async () => {
+    axios.get('http://localhost:5000/loans/')   
+    .then(response => {
+      rows=[]
+      const res =response.data.filter((user) => (user.reciever===localStorage.getItem("user")||user.sender==localStorage.getItem("user")));
+      res.forEach((loans)=>{console.log(loans);
+        rows.push(createData(loans))})
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  };
+  getLoans();
+})
+  console.log(rows)
+
   return (
+ 
     <div>
     <div id="header">
       <br/>
@@ -130,10 +146,11 @@ export default function Loans() {
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
-            <StyledTableCell align="center">side</StyledTableCell>
-            <StyledTableCell align="center">AcoountId</StyledTableCell>
-            <StyledTableCell align="center">Amount</StyledTableCell>
-            <StyledTableCell align="center">Status</StyledTableCell>
+            <StyledTableCell align="center">loanId</StyledTableCell>
+            <StyledTableCell align="center">amount</StyledTableCell>
+            <StyledTableCell align="center">sender</StyledTableCell>
+            <StyledTableCell align="center">reciever</StyledTableCell>
+            <StyledTableCell align="center">date</StyledTableCell>
             <StyledTableCell align="center"></StyledTableCell>
           </TableRow>
         </TableHead>
@@ -145,5 +162,5 @@ export default function Loans() {
       </Table>
     </TableContainer>
     </div>
-  );
+ );
 }

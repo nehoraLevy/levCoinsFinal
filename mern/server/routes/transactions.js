@@ -22,10 +22,10 @@ Routes.route("/transaction/add").post(async function (req, response) {
     });
 });
 
-Routes.route("/transaction/:sender").get(function (req, res) {
+Routes.route("/transaction/:sender").get(async function (req, res) {
     let db_connect = dbo.getDb();
     let myquery = { sender: String( req.params.sender )};
-    db_connect
+    await db_connect
         .collection("transactions")
         .findOne(myquery, function (err, result) {
           if (err) throw err;
@@ -33,10 +33,10 @@ Routes.route("/transaction/:sender").get(function (req, res) {
         });
 });
 
-Routes.route("/transaction/:reciever").get(function (req, res) {
+Routes.route("/transaction/:reciever").get(async function (req, res) {
   let db_connect = dbo.getDb();
   let myquery = { reciever: String( req.params.reciever )};
-  db_connect
+  await db_connect
       .collection("transactions")
       .findOne(myquery, function (err, result) {
         if (err) throw err;
@@ -44,9 +44,9 @@ Routes.route("/transaction/:reciever").get(function (req, res) {
       });
 });
 
-Routes.route("/transaction").get(function (req, res) {
+Routes.route("/transaction").get(async function (req, res) {
   let db_connect = dbo.getDb();
-  db_connect
+  await db_connect
       .collection("transactions")
       .find({})
       .toArray(function (err, result) {

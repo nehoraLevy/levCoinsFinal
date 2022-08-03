@@ -15,9 +15,9 @@ import {useNavigate} from "react-router-dom";
 import axios from 'axios'
 import io from "socket.io-client";
 import ReactDOMServer from "react-dom/server";
-
 let name=localStorage.getItem("user");
-
+let rows=[];
+let current;
 
 function createData(type,{amount,reciever,sender,transferId,loanId,date}) {
 
@@ -31,7 +31,6 @@ function createData(type,{amount,reciever,sender,transferId,loanId,date}) {
   let side;
   if(name==sender){
     side=convertToArrow("-")
-
   }
   else{
     side=convertToArrow("+")
@@ -74,10 +73,9 @@ function Row(props) {
   );
 }
 function convertAmount(amount){
-  return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return String(amount).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-let rows=[];
-let current;
+
 function rangeDays(date){
   let range=(Date.now()-(new Date(date)))/(1000 * 3600 * 24)
   return range
@@ -85,7 +83,6 @@ function rangeDays(date){
 
 function updateCurrent(cur){
   let newElement=cur.map((row) => {
-    console.log(row.side)
     return`<tr><td>${row.actionId}</td>
      <td>${row.type}</td>
      <td>${ReactDOMServer.renderToStaticMarkup(row.side)}</td>
@@ -125,7 +122,7 @@ export default function CurrentAccount(){
   const [isFetch, setIsFetch]=useState(false);
   const [socket, setSocket] = useState(null);
   useEffect(() => {
-    setSocket(io("http://localhost:5001"));
+    setSocket(io());
   }, []);
 
   useEffect(() => {
@@ -146,9 +143,8 @@ export default function CurrentAccount(){
       .catch((error) => {
         console.log(error);
       })
-      
     }
-    
+    rows=[]
     const getTrans = async () => {
       axios.get('http://localhost:5000/transaction/')   
       .then(response => {
@@ -193,12 +189,7 @@ export default function CurrentAccount(){
         <h4>account id: {isFetch ? Number(details.userNumber) : " "}</h4>
         <h4>ballance:<Converters value={isFetch ? Number(details.AmountInDollars).toFixed(0): 0} type="usd" levCoin={details.AmountInLevCoins}></Converters></h4>
         <div className='icon' onClick={()=>{OpenChat()}}/>
-        <select id="times"  onChange={()=>{currentBySliceTime()}} >
-          <option value="all">all</option>      
-          <option value="day">last day</option>
-          <option value="week">last week</option>
-          <option value="month">last month</option>
-        </select> 
+        
        </div>
         <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
@@ -208,7 +199,15 @@ export default function CurrentAccount(){
                 <StyledTableCell align="center">Type</StyledTableCell>
                 <StyledTableCell align="center">Side</StyledTableCell>
                 <StyledTableCell align="center">Amount</StyledTableCell>
-                <StyledTableCell align="center">Action Date</StyledTableCell>
+                <StyledTableCell align="center">Action Date{"  "}      
+                <select id="times"  onChange={()=>{currentBySliceTime()}} >
+                  <option value="all">all</option>      
+                  <option value="day">last day</option>
+                  <option value="week">last week</option>
+                  <option value="month">last month</option>
+                  </select></StyledTableCell>
+
+
                 <StyledTableCell align="center"></StyledTableCell>
             </TableRow>
             </TableHead>

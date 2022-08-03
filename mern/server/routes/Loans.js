@@ -22,10 +22,10 @@ Routes.route("/loans/add").post(async function (req, response) {
     });
 });
 
-Routes.route("/loans/:sender").get(function (req, res) {
+Routes.route("/loans/:sender").get(async function (req, res) {
     let db_connect = dbo.getDb();
     let myquery = { sender: String( req.params.sender )};
-    db_connect
+    await db_connect
         .collection("loans")
         .findOne(myquery, function (err, result) {
           if (err) throw err;
@@ -33,10 +33,10 @@ Routes.route("/loans/:sender").get(function (req, res) {
         });
 });
 
-Routes.route("/loans/:reciever").get(function (req, res) {
+Routes.route("/loans/:reciever").get(async function (req, res) {
   let db_connect = dbo.getDb();
   let myquery = { reciever: String( req.params.reciever )};
-  db_connect
+  await db_connect
       .collection("loans")
       .findOne(myquery, function (err, result) {
         if (err) throw err;
@@ -44,9 +44,9 @@ Routes.route("/loans/:reciever").get(function (req, res) {
       });
 });
 
-Routes.route("/loans").get(function (req, res) {
+Routes.route("/loans").get(async function (req, res) {
   let db_connect = dbo.getDb();
-  db_connect
+  await db_connect
       .collection("loans")
       .find({})
       .toArray(function (err, result) {

@@ -7,13 +7,10 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 //import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 //import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import DoneIcon from '@mui/icons-material/Done';
 import Typography from "@mui/material/Typography";
 import { FormOne, FormTwo, FormThree, FormFirst } from "./Forms";
 import "./Stepper.css";
 import io from "socket.io-client";
-import { useEffect, useState } from "react";
-
 function chequeDetails(amount,type){
   if(type=="Transfer")
   {
@@ -52,14 +49,18 @@ export const FormStepper = (props) => {
   let stepDescription=props.stepDescription;
   let header=props.header;
   const form = watch();
-
-  const socket = io('http://localhost:5001');
-  socket.on('connect', () => {
-    console.log("klllll")
-  });
-  socket.on('message', text => {
-    console.log("klllll")
-  });
+  let socket;
+  function connectToSocket(){
+  return new Promise(res=>{
+    socket = io("http://localhost:5000", { transports : ['websocket'] });
+    res(socket)
+  })}
+  connectToSocket().then(socket=>{socket.emit('message_on',"messasrtyuiouytrdyui");  })
+  const send=()=>{
+    console.log("55");
+    socket.on('message_emit',alert("mess"));
+  }
+  send();
 
   const handleNext = () => {
     let canContinue = true;
@@ -162,6 +163,8 @@ export const FormStepper = (props) => {
           </>
         )}
       </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+
     </div>
   );
 };

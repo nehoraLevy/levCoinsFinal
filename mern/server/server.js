@@ -23,18 +23,13 @@ const dbo = require("./db/connect");
 var http = require('http').createServer(app);
 
 
-const io = require("socket.io")(5001, {
-  cors: {
-    origin: "http://localhost:3000",
-  },
-  });io.on('connection', (socket) => {
-  socket.on('message', (message) =>     {
-      console.log(message);
-      io.emit('message', `${socket.id.substr(0,2)} said ${message}` );   
-  });
+const io=require('socket.io')(http)
+io.on('connection', (socket) => {
+  console.log("connacted");
+  socket.on('message_on', (message) => {
+      io.emit('message_emit',message);   
+    });
 });
-
-
 
 http.listen(port, async function()
  {
