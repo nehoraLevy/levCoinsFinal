@@ -4,7 +4,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import "./Wrap.css";
 
 
-import { updateUser } from "../getUsers";
+import { updateUser } from "../../models/getUsers";
 import axios from 'axios';
 
 export default function WrapLoan()

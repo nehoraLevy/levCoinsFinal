@@ -5,7 +5,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import Modal from '@mui/material/Modal';
 import Button from "@mui/material/Button";
 
-import { updateUser } from "../getUsers";
+import { updateUser } from "../../models/getUsers";
 import axios from 'axios';
 
 import "./Wrap.css";
