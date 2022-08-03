@@ -1,11 +1,12 @@
 
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 import { FormStepper } from "./Stepper";
 import { useForm, FormProvider } from "react-hook-form";
 import Modal from '@mui/material/Modal';
 import Button from "@mui/material/Button";
 
 import { getUserByName, updateUser } from "../getUsers";
+import axios from 'axios';
 
 import "./Wrap.css";
 
@@ -16,6 +17,43 @@ export default function WarpTransfer()
     useEffect(() => {
       console.log("FORM CONTEXT", watch(), errors);
     }, [watch, errors]);
+
+    const [details,setDetails]=useState({});
+    const [reciever, setReciever]=useState({});
+    const [recieverName, setRecieverName]=useState({});
+    const [isFetch, setIsFetch]=useState(false);
+  
+    
+    useEffect(()=>{
+      const getData = async () => {
+        let name=localStorage.getItem("user");
+        axios.get('http://localhost:5000/user/'+name)     
+        .then(response => {
+            setDetails(response.data);
+            setIsFetch(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        
+      }
+      getData();
+    }, []);
+
+    useEffect(()=>{
+      console.log(recieverName);
+      const getData = async () => {
+        axios.get('http://localhost:5000/user/'+recieverName)     
+        .then(response => {
+            setReciever(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        
+      }
+      getData();
+    }, [recieverName]);
 
 
     async function addTransfer({senderName, recieverName, amount})
@@ -36,21 +74,23 @@ export default function WarpTransfer()
     }
 
     async function updateAmounts({senderName, recieverName, amount})
-    { //need to do promise all or like this
-      const sender=await getUserByName(senderName);
-      const reciever= await getUserByName(recieverName);
+    {
+      const sender=details;
       sender.AmountInLevCoins-=amount;
       sender.AmountInDollars=sender.AmountInLevCoins*(1-(sender.userNumber-1)/100.0);
-      reciever.AmountInLevCoins+=amount;
-      reciever.AmountInDollars=reciever.AmountInLevCoins*(1-(reciever.userNumber-1)/100.0);
       updateUser(sender);
-      updateUser(reciever);
+      if(reciever){
+        reciever.AmountInLevCoins+=amount;
+        reciever.AmountInDollars=reciever.AmountInLevCoins*(1-(reciever.userNumber-1)/100.0);
+        updateUser(reciever);
+      }
     }
 
 
     async function handleFinish(data){
       let senderName=localStorage.getItem("user");
       let recieverName=data.two.selectUser;
+      setRecieverName(recieverName);
       let amount=data.two.amount;
       let password=data.three.password;
 

@@ -62,7 +62,7 @@ const ClientAppBar = () => {
               {settings.map((setting,index) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center" >
-                  <Link style={{textDecoration: "none", color:"black"}} to={`/`}>{setting}</Link>
+                  <Link style={{textDecoration: "none", color:"black"}} onClick={()=>{localStorage.clear();}} to={`/`}>{setting}</Link>
                   </Typography>
                 </MenuItem>
               ))}
