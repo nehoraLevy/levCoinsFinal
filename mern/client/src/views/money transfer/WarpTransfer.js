@@ -15,7 +15,7 @@ export default function WarpTransfer()
     const methods = useForm({ mode: "onBlur" });
     const { watch, errors } = methods;
     useEffect(() => {
-      console.log("FORM CONTEXT", watch(), errors);
+      //console.log("FORM CONTEXT", watch(), errors);
     }, [watch, errors]);
 
     const [details,setDetails]=useState({});

@@ -29,11 +29,24 @@ app.use(bodyParser.json(), urlencodedParser);
 
 // get driver connection
 const dbo = require("./db/connect");
+var http = require('http').createServer(app);
 
- 
-app.listen(port, async function()
+
+const io = require("socket.io")(5001, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
+  });io.on('connection', (socket) => {
+  socket.on('message', (message) =>     {
+      console.log(message);
+      io.emit('message', `${socket.id.substr(0,2)} said ${message}` );   
+  });
+});
+
+
+
+http.listen(port, async function()
  {
-  // perform a database connection when server starts
   dbo.connectToServer(function (err) {
     if (err) console.error(err);
  
@@ -41,3 +54,5 @@ app.listen(port, async function()
   console.log(`Server is running on port: ${port}`);
 
 });
+
+

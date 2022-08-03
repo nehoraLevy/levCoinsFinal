@@ -34,7 +34,7 @@ const ResponsiveAppBar = () => {
                 key={page}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <Link  onClick={console.log(`/${page}`)} style={{textDecoration: "none", color:"white"}} to={`/${page}`}>{page}</Link>
+                <Link  style={{textDecoration: "none", color:"white"}} to={`/${page}`}>{page}</Link>
               </Button>
             ))}
           </Box>

@@ -45,6 +45,7 @@
     "react-select-search": "^3.0.10",
     "react-simple-chatbot": "^0.6.1",
     "react-slideshow-image": "^4.0.2",
+    "socket.io-client": "^4.5.1",
     "stream": "^0.0.2",
     "stream-browserify": "^3.0.0",
     "styled-components": "^4.4.1",

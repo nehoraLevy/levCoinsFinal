@@ -55,5 +55,14 @@ Routes.route("/loans/:reciever").get(function (req, res) {
       });
 });
 
-
+Routes.route("/loans").get(function (req, res) {
+  let db_connect = dbo.getDb();
+  db_connect
+      .collection("loans")
+      .find({})
+      .toArray(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+});
 module.exports = Routes;

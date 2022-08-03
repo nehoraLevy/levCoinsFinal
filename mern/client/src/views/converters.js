@@ -45,6 +45,11 @@ export default function ColorToggleButton(props) {
         console.log(value * rate)
         document.getElementById("value").innerHTML=convertAmount((value * rate).toFixed(0));}
     }
+    const ConverToLevCoin=()=>{
+        console.log(props.levCoin)
+        document.getElementById("value").innerHTML=convertAmount((props.levCoin.toString()));
+
+    }
     return (
         <div>
             <div id="value" style={{"color":"black"}}>{convertAmount(value)}</div>
@@ -56,6 +61,7 @@ export default function ColorToggleButton(props) {
                 >
                 <ToggleButton id="shekels" value="shekels" onClick={convertDollarsToShekel}><span>&#8362;</span></ToggleButton>
                 <ToggleButton value="dollars" onClick={convertShekelToDollars}><span>&#36;</span></ToggleButton>
+                <ToggleButton value="levCoin" onClick={ConverToLevCoin}>LEV</ToggleButton>
             </ToggleButtonGroup>
         </div>
     );
