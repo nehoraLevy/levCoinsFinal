@@ -14,7 +14,8 @@ import "./CurrentAccount.css";
 import {useNavigate} from "react-router-dom";
 import axios from 'axios'
 import io from "socket.io-client";
-import SelectedSliceTime from "./ListItem"
+import ReactDOMServer from "react-dom/server";
+
 let name=localStorage.getItem("user");
 
 
@@ -27,8 +28,16 @@ function createData(type,{amount,reciever,sender,transferId,loanId,date}) {
   else{
     actionId=transferId
   }
+  let side;
+  if(name==sender){
+    side=convertToArrow("-")
+
+  }
+  else{
+    side=convertToArrow("+")
+  }
   date=date.split(' ').slice(1, 4).join(' ');
-  return {amount,type,reciever,sender,actionId,date};
+  return {amount,type,reciever,side,sender,actionId,date};
 }
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -39,17 +48,25 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 14,
   },
 }));
+
+function convertToArrow(type){
+  if(type=='+'){
+    return <span style={{color:"green"}}>&#8593;</span>
+  }
+  return <span style={{color:"red"}}>&#8595;</span>
+
+}
+
+
 function Row(props) {
   const { row } = props;
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} >
-      <TableCell align="center">{convertAmount(row.amount)}</TableCell>
-      <TableCell align="center">{row.type}</TableCell>
-      <TableCell align="center">{row.reciever}</TableCell>
-      <TableCell align="center">{row.sender}</TableCell>
-
       <TableCell align="center">{row.actionId}</TableCell>
+      <TableCell align="center">{row.type}</TableCell>
+      <TableCell align="center">{row.side}</TableCell>
+      <TableCell align="center">{convertAmount(row.amount)}</TableCell>
       <TableCell align="center">{row.date}</TableCell>
 
       </TableRow>
@@ -63,30 +80,42 @@ let rows=[];
 let current;
 function rangeDays(date){
   let range=(Date.now()-(new Date(date)))/(1000 * 3600 * 24)
-  console.log(range)
   return range
+}
+
+function updateCurrent(cur){
+  let newElement=cur.map((row) => {
+    console.log(row.side)
+    return`<tr><td>${row.actionId}</td>
+     <td>${row.type}</td>
+     <td>${ReactDOMServer.renderToStaticMarkup(row.side)}</td>
+     <td>${convertAmount(row.amount).toString()}</td>
+     <td>${row.date}</td></tr>`
+    }).join('')
+  document.getElementById("data").innerHTML=newElement;
+
 }
 function currentBySliceTime(){
   const element = document.getElementById("times").value;
   switch(element){
     case "all":
       current=rows;
-      document.getElementById("data").contentWindow.location.reload(true);
+      updateCurrent(current)
       break;
+      case "day":
+        current=rows.filter((element)=>(rangeDays(element.date)<1))
+        updateCurrent(current)
+        break;
     case "week":
       current=rows.filter((element)=>(rangeDays(element.date)<7))
-      document.getElementById("data").contentWindow.location.reload(true);
-
+      updateCurrent(current)
       break;
     case "month":
-      current=rows.filter((element)=>(rangeDays(element.date)<5))
-      console.log(current)
-      document.getElementById("data").contentWindow.location.reload(true);
-
+      current=rows.filter((element)=>(rangeDays(element.date)<30))
+      updateCurrent(current)
       break
     default:
       console.log("default")
-
   }
  }
 
@@ -94,10 +123,7 @@ export default function CurrentAccount(){
   const navigate = useNavigate();
   const [details,setDetails]=useState({});
   const [isFetch, setIsFetch]=useState(false);
-
   const [socket, setSocket] = useState(null);
-
-
   useEffect(() => {
     setSocket(io("http://localhost:5001"));
   }, []);
@@ -122,7 +148,7 @@ export default function CurrentAccount(){
       })
       
     }
-    getData();
+    
     const getTrans = async () => {
       axios.get('http://localhost:5000/transaction/')   
       .then(response => {
@@ -133,13 +159,13 @@ export default function CurrentAccount(){
         console.log(error);
       })
     }
+    getData();
     getTrans();
 
     const getLoans = async () => {
       axios.get('http://localhost:5000/loans/')   
       .then(response => {
         const res =response.data.filter((user) => (user.reciever===localStorage.getItem("user")||user.sender==localStorage.getItem("user")));
-        console.log(response.data)
         res.forEach((trans)=>rows.push(createData("loans",trans)))
       })
       .catch((error) => {
@@ -167,8 +193,9 @@ export default function CurrentAccount(){
         <h4>account id: {isFetch ? Number(details.userNumber) : " "}</h4>
         <h4>ballance:<Converters value={isFetch ? Number(details.AmountInDollars): 0} type="usd" levCoin={details.AmountInLevCoins}></Converters></h4>
         <div className='icon' onClick={()=>{OpenChat()}}/>
-        <select id="times" onChange={()=>{currentBySliceTime()}} >
-          <option value="all">all</option>
+        <select id="times"  onChange={()=>{currentBySliceTime()}} >
+          <option value="all">all</option>      
+          <option value="day">last day</option>
           <option value="week">last week</option>
           <option value="month">last month</option>
         </select> 
@@ -177,11 +204,10 @@ export default function CurrentAccount(){
         <Table aria-label="collapsible table">
             <TableHead>
             <TableRow>
-                <StyledTableCell align="center">Amount</StyledTableCell>
-                <StyledTableCell align="center">Type</StyledTableCell>
-                <StyledTableCell align="center">Reciever</StyledTableCell>
-                <StyledTableCell align="center">Sender</StyledTableCell>
                 <StyledTableCell align="center">actionId</StyledTableCell>
+                <StyledTableCell align="center">Type</StyledTableCell>
+                <StyledTableCell align="center">Side</StyledTableCell>
+                <StyledTableCell align="center">Amount</StyledTableCell>
                 <StyledTableCell align="center">Action Date</StyledTableCell>
                 <StyledTableCell align="center"></StyledTableCell>
             </TableRow>
