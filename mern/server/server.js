@@ -23,10 +23,10 @@ app.use(require("./routes/transactions"));
 app.use(require("./routes/Loans"));
 
 app.use(require("./sendEmail/sendEmail"));
-
+/*
 const urlencodedParser=bodyParser.urlencoded({extends:false});
 app.use(bodyParser.json(), urlencodedParser);
-
+*/
 // get driver connection
 const dbo = require("./db/connect");
 var http = require('http').createServer(app);

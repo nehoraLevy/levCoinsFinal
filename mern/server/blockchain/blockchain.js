@@ -1,6 +1,8 @@
 const crypto = require('crypto'); // Import NodeJS's Crypto Module
 const logger = require('elogger');
 
+const dbo = require("../db/connect");
+
 class Block { // Our Block Class
     constructor(data, prevHash = "") {
         this.timestamp = Date.now(); // Get the current timestamp
@@ -61,9 +63,20 @@ module.exports = {
          // Init our chain
     },
     createNewBlock: function ({id,sender, reciever, amount, date}){
+        
         let newBlock= new Block({id,sender, reciever, amount, date});
         logger.info(`new block hash: ${newBlock.hash}`);
         chain.addNewBlock(newBlock);
         logger.info(`updated chain! and his Validity: ${chain.checkChainValidity()}`);
+
+        if(chain.checkChainValidity()){ //add to db
+            let db_connect = dbo.getDb();
+            db_connect.collection("blockchain").deleteOne({}, function (err, obj) {
+                if (err) throw err;
+            });
+            db_connect.collection("blockchain").insertOne(chain, function (err, res) {
+                if (err) throw err;
+            });
+        }
     },
 };
