@@ -18,8 +18,7 @@ import connectToSocket from "../models/sockets";
 import io from "socket.io-client";
 import ReactDOMServer from "react-dom/server";
 let name=localStorage.getItem("user");
-let rows=[];
-let current;
+
 
 function createData(type,{amount,reciever,sender,transferId,loanId,date}) {
 
@@ -84,6 +83,7 @@ function rangeDays(date){
 }
 
 function updateCurrent(cur){
+  console.log(cur)
   let newElement=cur.map((row) => {
     return`<tr><td>${row.actionId}</td>
      <td>${row.type}</td>
@@ -92,31 +92,8 @@ function updateCurrent(cur){
      <td>${row.date}</td></tr>`
     }).join('')
   document.getElementById("data").innerHTML=newElement;
-
 }
-function currentBySliceTime(){
-  const element = document.getElementById("times").value;
-  switch(element){
-    case "all":
-      current=rows;
-      updateCurrent(current)
-      break;
-      case "day":
-        current=rows.filter((element)=>(rangeDays(element.date)<1))
-        updateCurrent(current)
-        break;
-    case "week":
-      current=rows.filter((element)=>(rangeDays(element.date)<7))
-      updateCurrent(current)
-      break;
-    case "month":
-      current=rows.filter((element)=>(rangeDays(element.date)<30))
-      updateCurrent(current)
-      break
-    default:
-      console.log("default")
-  }
- }
+
 
 export default function CurrentAccount(){
   const navigate = useNavigate();
@@ -150,7 +127,7 @@ export default function CurrentAccount(){
         console.log(error);
       })
     }
-    rows=[]
+
     const getTrans = async () => {
       axios.get('http://localhost:5000/transaction/')   
       .then(response => {
@@ -184,7 +161,30 @@ export default function CurrentAccount(){
       })
     }
   },[]);
-  current=rows;
+  function currentBySliceTime(){
+    const element = document.getElementById("times").value;
+    let current=trans.concat(loans);
+    console.log(current)
+    switch(element){
+      case "all":
+        updateCurrent(current)
+        break;
+        case "day":
+          current=current.filter((element)=>(rangeDays(element.date)<1))
+          updateCurrent(current)
+          break;
+      case "week":
+        current=current.filter((element)=>(rangeDays(element.date)<7))
+        updateCurrent(current)
+        break;
+      case "month":
+        current=current.filter((element)=>(rangeDays(element.date)<30))
+        updateCurrent(current)
+        break
+      default:
+        console.log("default")
+    }
+   }
   localStorage.setItem('AmountInDollars',details.AmountInDollars)
   localStorage.setItem('AmountInLevCoins',details.AmountInLevCoins)
   if(details.AmountInLevCoins==0){
@@ -225,15 +225,11 @@ export default function CurrentAccount(){
             </TableRow>
             </TableHead>
             <TableBody id="data">
-            {trans.map((row) => (
+            {(trans.concat(loans)).map((row) => (
                 <Row id={row} key={row.accountID} row={row} />
             ))}
             </TableBody>
-            <TableBody id="data">
-            {loans.map((row) => (
-                <Row id={row} key={row.accountID} row={row} />
-            ))}
-            </TableBody>
+
         </Table>
         </TableContainer>
     </div>
