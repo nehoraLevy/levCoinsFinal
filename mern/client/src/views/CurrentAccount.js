@@ -180,7 +180,6 @@ export default function CurrentAccount(){
   }
   function OpenChat()
   {
-    document.getElementById("header").classList.add("blure")
     navigate("/client/Chat")
   }
 

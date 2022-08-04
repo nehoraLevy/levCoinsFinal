@@ -26,7 +26,7 @@ export default function WrapLoan()
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({senderName, recieverName, amount}),
+          body: JSON.stringify({sender:senderName, reciever: recieverName, amount}),
         })
         .catch(error => {
           window.alert(error);
