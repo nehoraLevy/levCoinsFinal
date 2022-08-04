@@ -41,6 +41,54 @@ export const FormStepper = (props) => {
   let stepDescription=props.stepDescription;
   let header=props.header;
   const form = watch();
+
+  const [details,setDetails]=useState([]);
+  
+  useEffect(()=>{
+    const getData = async () => {
+      axios.get('http://localhost:5000/user/')   
+      .then(response => {
+          setDetails(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    }
+    getData();
+  }, []);
+
+  function checkDetailsLoan(amount,type){
+    const sender=details.find(i=> i.name===localStorage.getItem("user"));
+    if(amount>sender.AmountInLevCoins)
+    {
+      alert("It is not possible to transfer money more than your balance");
+      return false;
+    }
+    else if(type=="Loan")
+    {
+      if((2*amount)>sender.AmountInLevCoins){
+        alert("It is not possible to borrow money more than half the amount available in your balance");
+        return false
+      }
+      if(amount>(window.reciever.AmountInLevCoins*0.6)){
+        alert("It is not possible to borrow money more than 60% of the borrower's balance");
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function checkReciever(recieverName){
+    if(details.find(i=> i.name==recieverName)!=undefined && recieverName!==localStorage.getItem("user")){
+      window.reciever=details.find(i=> i.name==recieverName);
+      return true;
+    }
+    else{
+      alert("This user is not exist");
+      //document.getElementsByName("selectUser")[0].innerHTML="";
+      return false;
+    }
+  }
   let socket;
   function connectToSocket(){
   return new Promise(res=>{
