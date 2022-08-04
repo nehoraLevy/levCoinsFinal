@@ -18,10 +18,10 @@ const ObjectId = require("mongodb").ObjectId;
 
  
  
-// This section will help you get a list of all the users
-Routes.route("/user").get(function (req, res) {
+// This section will help you get a list of all the records.
+Routes.route("/user").get(async function (req, res) {
  let db_connect = dbo.getDb("Users");
-  db_connect.collection("users")
+ await db_connect.collection("users")
    .find({})
    .toArray(function (err, result) {
      if (err) throw err;
@@ -30,10 +30,10 @@ Routes.route("/user").get(function (req, res) {
 });
 
 // This section will help you get a single user by name
-Routes.route("/user/:name").get(function (req, res) {
+Routes.route("/user/:name").get(async function (req, res) {
   let db_connect = dbo.getDb();
   let myquery = { name: String( req.params.name )};
-  db_connect
+  await db_connect
       .collection("users")
       .findOne(myquery, function (err, result) {
         if (err) throw err;

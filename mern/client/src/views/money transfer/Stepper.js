@@ -7,7 +7,6 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 //import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 //import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import DoneIcon from '@mui/icons-material/Done';
 import Typography from "@mui/material/Typography";
 import { FormOne, FormTwo, FormThree, FormFirst } from "./Forms";
 import "./Stepper.css";
@@ -58,18 +57,6 @@ export const FormStepper = (props) => {
     getData();
   }, []);
 
-  function checkReciever(recieverName){
-    if(details.find(i=> i.name==recieverName)!=undefined && recieverName!==localStorage.getItem("user")){
-      window.reciever=details.find(i=> i.name==recieverName);
-      return true;
-    }
-    else{
-      alert("This user is not exist");
-      //document.getElementsByName("selectUser")[0].innerHTML="";
-      return false;
-    }
-  }
-
   function checkDetailsLoan(amount,type){
     const sender=details.find(i=> i.name===localStorage.getItem("user"));
     if(amount>sender.AmountInLevCoins)
@@ -91,13 +78,29 @@ export const FormStepper = (props) => {
     return true;
   }
 
-  const socket = io('http://localhost:5001');
-  socket.on('connect', () => {
-    console.log("klllll")
-  });
-  socket.on('message', text => {
-    console.log("klllll")
-  });
+  function checkReciever(recieverName){
+    if(details.find(i=> i.name==recieverName)!=undefined && recieverName!==localStorage.getItem("user")){
+      window.reciever=details.find(i=> i.name==recieverName);
+      return true;
+    }
+    else{
+      alert("This user is not exist");
+      //document.getElementsByName("selectUser")[0].innerHTML="";
+      return false;
+    }
+  }
+  let socket;
+  function connectToSocket(){
+  return new Promise(res=>{
+    socket = io("http://localhost:5000", { transports : ['websocket'] });
+    res(socket)
+  })}
+  connectToSocket().then(socket=>{socket.emit('message_on',"messasrtyuiouytrdyui");  })
+  const send=()=>{
+    console.log("55");
+    socket.on('message_emit',alert("mess"));
+  }
+  send();
 
   const handleNext = () => {
     let canContinue = true;
@@ -203,6 +206,8 @@ export const FormStepper = (props) => {
           </>
         )}
       </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+
     </div>
   );
 };
