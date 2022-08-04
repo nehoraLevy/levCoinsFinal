@@ -89,7 +89,7 @@ export const FormStepper = (props) => {
       return false;
     }
   }
-  let socket;
+ /* let socket;
   function connectToSocket(){
   return new Promise(res=>{
     socket = io("http://localhost:5000", { transports : ['websocket'] });
@@ -100,7 +100,7 @@ export const FormStepper = (props) => {
     console.log("55");
     socket.on('message_emit',alert("mess"));
   }
-  send();
+  send();*/
 
   const handleNext = () => {
     let canContinue = true;
