@@ -17,7 +17,7 @@ import axios from 'axios'
 import{useEffect, useState } from "react";
 
 function createData(loan) {
-  let {loanId,amount,sender,reciever,date} = loan
+  let {loanId,amount,sender,reciever,date} = loan;
   date=date.split(' ').slice(1, 4).join(' ');
   return {
     loanId,amount,sender,reciever,date,
@@ -25,7 +25,7 @@ function createData(loan) {
       {
         interest: 0.001,
         loanDate:date,
-        returnPeriod: Math.floor(Math.random() * 11+1).toString()+" month",
+        returnPeriod:"5 months",
         reason:"no reason"
       },
 
@@ -111,16 +111,16 @@ Row.propTypes = {
     ).isRequired,
   }).isRequired,
 };
-let rows = [];
 export default function Loans() {
+  const[loans,setLoan]=useState([]);
   useEffect(()=>{
   const getLoans = async () => {
     axios.get('http://localhost:5000/loans/')   
     .then(response => {
-      rows=[]
-      const res =response.data.filter((user) => (user.reciever===localStorage.getItem("user")||user.sender==localStorage.getItem("user")));
-      res.forEach((loans)=>{console.log(loans);
-        rows.push(createData(loans))})
+      const res=response.data.filter((user) => (user.reciever===localStorage.getItem("user")||user.sender==localStorage.getItem("user")));
+      setLoan(res.map(i=>createData(i)));
+      //res.forEach((loans)=>{console.log(loans);
+      //  rows.push(createData(loans))})
     })
     .catch((error) => {
       console.log(error);
@@ -128,7 +128,6 @@ export default function Loans() {
   };
   getLoans();
 })
-  console.log(rows)
 
   return (
  
@@ -155,7 +154,7 @@ export default function Loans() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {loans.map((row) => (
             <Row key={row.accountID} row={row} />
           ))}
         </TableBody>
