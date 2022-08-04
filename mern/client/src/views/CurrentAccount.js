@@ -119,6 +119,8 @@ function currentBySliceTime(){
 export default function CurrentAccount(){
   const navigate = useNavigate();
   const [details,setDetails]=useState({});
+  const [loans, setLoans]=useState([]);
+  const [trans, setTrans]=useState([]);
   const [isFetch, setIsFetch]=useState(false);
   const [socket, setSocket] = useState(null);
   useEffect(() => {
@@ -149,7 +151,7 @@ export default function CurrentAccount(){
       axios.get('http://localhost:5000/transaction/')   
       .then(response => {
         const res =response.data.filter((user) => (user.reciever===localStorage.getItem("user")||user.sender==localStorage.getItem("user")));
-        res.forEach((trans)=>rows.push(createData("transfer",trans)))
+        setTrans(res.map(el=>createData("transfer",el)));
       })
       .catch((error) => {
         console.log(error);
@@ -162,7 +164,7 @@ export default function CurrentAccount(){
       axios.get('http://localhost:5000/loans/')   
       .then(response => {
         const res =response.data.filter((user) => (user.reciever===localStorage.getItem("user")||user.sender==localStorage.getItem("user")));
-        res.forEach((trans)=>rows.push(createData("loans",trans)))
+        setLoans(res.map(el=>createData("loans",el)));
       })
       .catch((error) => {
         console.log(error);
@@ -173,7 +175,7 @@ export default function CurrentAccount(){
   current=rows;
   localStorage.setItem('AmountInDollars',details.AmountInDollars)
   localStorage.setItem('AmountInLevCoins',details.AmountInLevCoins)
-  if(localStorage.AmountInDollars==0){
+  if(details.AmountInLevCoins==0){
     ///socket to manager ----------------------------------------------------------------
   }
   function OpenChat()
@@ -211,7 +213,12 @@ export default function CurrentAccount(){
             </TableRow>
             </TableHead>
             <TableBody id="data">
-            {current.map((row) => (
+            {trans.map((row) => (
+                <Row id={row} key={row.accountID} row={row} />
+            ))}
+            </TableBody>
+            <TableBody id="data">
+            {loans.map((row) => (
                 <Row id={row} key={row.accountID} row={row} />
             ))}
             </TableBody>
