@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { FormOne, FormTwo, FormThree, FormFirst } from "./Forms";
 import "./Stepper.css";
-import io from "socket.io-client";
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -64,6 +64,7 @@ export const FormStepper = (props) => {
       alert("It is not possible to transfer money more than your balance");
       return false;
     }
+
     else if(type=="Loan")
     {
       if((2*amount)>sender.AmountInLevCoins){
@@ -89,20 +90,15 @@ export const FormStepper = (props) => {
       return false;
     }
   }
-  /*
-  let socket;
-  function connectToSocket(){
-  return new Promise(res=>{
-    socket = io("http://localhost:5000", { transports : ['websocket'] });
-    res(socket)
-  })}
-  connectToSocket().then(socket=>{socket.emit('message_on',"messasrtyuiouytrdyui");  })
-  const send=()=>{
-    console.log("55");
-    socket.on('message_emit',alert("mess"));
-  }
-  send();*/
+  
 
+  /*
+  const send=()=>{
+    //io.in('game').emit('message', 'cool game');
+    io.on('message_emit',alert("mess"));
+  }
+  send();
+  */
   const handleNext = () => {
     let canContinue = true;
     switch (activeStep) {

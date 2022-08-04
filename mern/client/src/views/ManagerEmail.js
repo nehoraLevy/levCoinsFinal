@@ -108,6 +108,11 @@ function ManagerEmail(props) {
 export default function ManageEmails(){
     const [details,setDetails]=useState([]);
     const [isFetch, setIsFetch]=useState(false);
+    if(window.setManagerAlert)
+    {
+      console.log("32");
+      alert(`user ${window.setManagerAlert.name}'s balance go to 0`);
+    }
     
     useEffect(()=>{
       const getData = async () => {

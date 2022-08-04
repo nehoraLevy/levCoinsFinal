@@ -12,6 +12,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link} from "react-router-dom"; 
 import "./ResposiveAppBar.css";
+import connectToSocket from '../models/sockets';
+
+
 const pages = ['Email','Clients','Update Details'];
 const settings = ['Logout'];
 const ManagerAppBar = () => {
@@ -22,6 +25,15 @@ const ManagerAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  React.useEffect(()=>{
+    connectToSocket().then(socket=>{
+      window.socket=socket;
+      socket.on('message_emit', (message)=>alert(message));
+    });
+
+  },[])
+
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">

@@ -3,7 +3,6 @@ import { FormStepper } from "./Stepper";
 import { useForm, FormProvider } from "react-hook-form";
 import "./Wrap.css";
 
-
 import { updateUser } from "../../models/getUsers";
 import axios from 'axios';
 

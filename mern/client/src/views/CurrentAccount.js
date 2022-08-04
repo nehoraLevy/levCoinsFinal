@@ -13,6 +13,8 @@ import Converters from './converters';
 import "./CurrentAccount.css";
 import {useNavigate} from "react-router-dom";
 import axios from 'axios'
+import connectToSocket from "../models/sockets";
+
 import io from "socket.io-client";
 import ReactDOMServer from "react-dom/server";
 let name=localStorage.getItem("user");
@@ -131,6 +133,8 @@ export default function CurrentAccount(){
     socket?.emit("newUser", localStorage.getItem("user"));
   }, [socket]);
 
+
+
   const func1=()=>{socket?.emit("sendNotification", {
     senderName: name,
     receiverName:'admin',
@@ -159,7 +163,6 @@ export default function CurrentAccount(){
     }
     getData();
     getTrans();
-
     const getLoans = async () => {
       axios.get('http://localhost:5000/loans/')   
       .then(response => {
@@ -172,6 +175,15 @@ export default function CurrentAccount(){
     }
     getLoans();
   }, []);
+
+  useEffect(()=>{
+    console.log(details?.AmountInLevCoins);
+    if(details?.AmountInLevCoins==0){
+      connectToSocket().then(socket=>{
+        socket.emit("send_message",`your client's balance 0`);
+      })
+    }
+  },[]);
   current=rows;
   localStorage.setItem('AmountInDollars',details.AmountInDollars)
   localStorage.setItem('AmountInLevCoins',details.AmountInLevCoins)

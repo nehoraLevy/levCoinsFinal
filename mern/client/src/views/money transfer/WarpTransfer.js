@@ -7,7 +7,6 @@ import Button from "@mui/material/Button";
 
 import { updateUser } from "../../models/getUsers";
 import axios from 'axios';
-
 import "./Wrap.css";
 
 export default function WarpTransfer()
@@ -39,6 +38,9 @@ export default function WarpTransfer()
       }
       getData();
     }, []);
+
+
+  
 
 
 

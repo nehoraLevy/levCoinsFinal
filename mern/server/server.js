@@ -31,13 +31,22 @@ app.use(bodyParser.json(), urlencodedParser);
 const dbo = require("./db/connect");
 var http = require('http').createServer(app);
 
+var user;
+function getIDAdmin(){
+  return user?.id;
 
+}
 const io=require('socket.io')(http)
 io.on('connection', (socket) => {
-  console.log("connacted");
-  socket.on('message_on', (message) => {
-      io.emit('message_emit',message);   
-    });
+
+
+  socket.on("send_message",(message)=>{
+    const id=getIDAdmin();
+    io.emit('message_emit',message);
+  })
+
+
+
 });
 
 http.listen(port, async function()
