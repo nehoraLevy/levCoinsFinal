@@ -6,6 +6,7 @@ import userAvatar from "./img/user.png";
 import "./chat.css";
 import axios from 'axios'
 import { Modal } from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 const theme = {
   background: "#f5f8fb",
@@ -24,7 +25,11 @@ export default function Chat() {
   const [details,setDetails]=useState({});
   const [isFetch, setIsFetch]=useState(false);
   const [open, setOpen] = useState(true);
-  const handleClose = () => setOpen(false);
+  const navigate = useNavigate();
+  const handleClose = () => 
+  { setOpen(false);
+    navigate("/client")
+  }
 
   
   useEffect(()=>{
