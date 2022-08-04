@@ -5,6 +5,7 @@ import botAvatar from "./img/logo.png";
 import userAvatar from "./img/user.png";
 import "./chat.css";
 import axios from 'axios'
+import { Modal } from "@mui/material";
 
 const theme = {
   background: "#f5f8fb",
@@ -22,6 +23,8 @@ export default function Chat() {
 
   const [details,setDetails]=useState({});
   const [isFetch, setIsFetch]=useState(false);
+  const [open, setOpen] = useState(true);
+  const handleClose = () => setOpen(false);
 
   
   useEffect(()=>{
@@ -42,6 +45,8 @@ export default function Chat() {
   
 
   return (
+    <Modal style={{display:'flex',alignItems:'center',justifyContent:'center'}} disableEnforceFocus open={open} onClose={handleClose}  aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+
     <div className="bot">
       <ThemeProvider theme={theme}>
         <ChatBot
@@ -105,5 +110,6 @@ export default function Chat() {
         />
       </ThemeProvider>
       </div>
+      </Modal>
   );
 }
